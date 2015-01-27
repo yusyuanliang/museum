@@ -2,13 +2,8 @@
  * flatui-radiocheck v0.1.0
  * ============================================================ */
 
-$(function() {
-
-  Parse.$ = jQuery;
-    
-  // Initialize Parse with your Parse application javascript keys
-  Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
-                   "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
++function (global, $) {
+  'use strict';
 
   var Radiocheck = function (element, options) {
     this.init('radiocheck', element, options);
