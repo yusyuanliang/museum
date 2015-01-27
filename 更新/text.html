@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<title>sign</title>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+  		<link href="stylesheets/screen.css" media="all" rel="stylesheet">
+  		<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+  		<!-- Loading Bootstrap -->
+   		<link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+
+    	<!-- Loading Flat UI -->
+    	<link href="dist/css/flat-ui.css" rel="stylesheet">
+    	<link href="docs/assets/css/demo.css" rel="stylesheet">
+    	<link rel="shortcut icon" href="img/favicon.ico">
+	</head>
+	<body>
+		<form id="form1" runat="server">
+		<div>
+		
+		<asp:TextBox ID="userName" runat="server"></asp:TextBox>
+				<div id="myDiv"></div>
+			
+		</div>
+		</form>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$("#<%=userName.clientID%>").blur(checkUserName)
+		});
+
+		function checkUserName() {
+			var userID= $(this).val();
+
+			if (userID != '') {			
+				$.ajax({
+					type:'POST'
+					url:"_User.json/ChkUser",
+					data:"{ChkUserID:'"+userID+"'}",
+					contentType:"application/json;charset=utf-8",
+					dataType:"json",
+					success:function(data){
+						$('#myDiv').htm(data.d);
+				}
+			});
+		}
+		else{
+			alert('請輸入帳號');
+		}
+	}
+		</script>
+	</body>
+</html>
+
+
+
+

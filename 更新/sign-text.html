@@ -1,0 +1,85 @@
+<html>
+	<head>
+		<title>sign</title>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+  		<link href="stylesheets/screen.css" media="all" rel="stylesheet">
+  		<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+  		<!-- Loading Bootstrap -->
+   		<link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+
+    	<!-- Loading Flat UI -->
+    	<link href="dist/css/flat-ui.css" rel="stylesheet">
+    	<link href="docs/assets/css/demo.css" rel="stylesheet">
+    	<link rel="shortcut icon" href="img/favicon.ico">
+	</head>
+	<body>
+		<div class="navigation">
+			<div class="navigation2">
+				<div class="signmember">
+					<h1>註冊會員</h1>
+					<form class="forma">
+					    <h6><label>Email</label><input type="text" name="fname" id="login-email"/></h6>
+					    <h6><label>密　碼</label><input type="text" name="lname" id="p1" placeholder=""/></h6>
+					    <h6><label>確認密碼</label><input type="text" name="lname" id="p2" placeholder=""/></h6> 
+					    <!-- <input type="submit" value="註冊" />-->
+					</form>
+					<div class="bn-sign">
+					    <a href="#fakelink" class="btn btn-block btn-lg btn-primary" onclick="check()">註冊</a>
+					</div>	 
+					<p><span id="pw"></span></p>
+					                 
+				</div>
+			</div>
+		</div>
+			
+			
+		</div>
+		<script language=javascript>
+		    function check(){ 
+
+		        if(p1.value==p2.value){
+		           window.location.href="http://www.pinterest.com/";
+		            return true;
+		            
+		        }
+		        else{
+		            document.getElementById("pw").innerHTML="密碼不相符，請重新輸入";
+		            p1.value="";
+		            p2.value="";
+		        }  
+		    }
+		</script>
+<!-- 3-3顯示對錯        !!!        我編輯在這裡--><!-- 3-3顯示對錯        !!!        我編輯在這裡-->
+		<script type="text/javascript">
+			function check(){
+				if {
+				}
+				else{
+				}
+			}
+		</script>
+		<script type="text/javascript">
+			var pattern = "^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"; 
+
+function isEmailAddress(str) {
+
+    str = "azamsharp@gmail.com";      
+
+    alert(str.match(pattern)); 
+    return str.match(pattern);    
+
+}
+		</script>
+	</body>
+</html>
+
+<script type="text/javascript">
+			// function check(){
+			// 	if {輸入的email不等於 資料庫 任何一筆資料，介面顯示"可使用"
+			// 		input login-email not DB(1.如何跟DB做連結 2.如何搜尋所有資料 3.如何搜尋完告訴JS) , interface show "可使用" 
+			// 	}
+			// 	else{輸入的email等於 資料庫 任何一筆資料，介面顯示"不可使用"
+			// 		input login-email yes DB(4.如何搜尋到一筆重複資料) , interface show "不可使用" 
+			// 	}
+			// }
+</script>
