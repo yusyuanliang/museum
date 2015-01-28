@@ -25,12 +25,12 @@
 						
             
             function check(){ 
-
+                var username = e1.value;
+				var password = p1.value;
 		        if(p1.value==p2.value){
                     signUpToParse();
 		          // window.location.href="http://www.pinterest.com/";
-		            return true;
-		            
+		            return true;  
 		        }
 		        else{
 		            document.getElementById("pw").innerHTML="密碼不相符，請重新輸入";
@@ -40,34 +40,28 @@
 		    }
             
             
-                        function signUpToParse() {
+            function signUpToParse() {
 				//alert('call signUp');
-						    
-
-				var username = e1.value;
-				var password = p1.value;
-						    
+				
+					var username = e1.value;
+				    var password = p1.value;	    
 				Parse.User.signUp(username, password, null, {
 				    success: function(user) {
 				    //alert('user:' + user.getUsername());
                     window.location.href="http://www.pinterest.com/";
-
-				    document.getElementById("email-auth-yes").innerHTML="可使用";
-						        	
+				    //document.getElementById("email-auth-yes").innerHTML="帳號可使用";   	
 						    },
 
 				    error: function(user, error) {
 				    //alert('error:' + error.code + "message:"+ error.message);
-				    document.getElementById("email-auth-no").innerHTML="不能使用";
-                                	// self.$(".login-form .error").html("Invalid username or password. Please try again.").show();
-                                	// self.$(".login-form button").removeAttr("disabled");
-                                  
+				    document.getElementById("email-auth-no").innerHTML="帳號已有人使用，請重新輸入!";
+                   e1.value="";
+                        p1.value="";
+                        p2.value="";
 						      	}
 						    });
 						   }
-            
-
-					</script>
+        </script>
 	</head>
 	<body >
 		<div class="navigation">
