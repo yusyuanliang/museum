@@ -20,14 +20,15 @@
         <script type="text/javascript">				
             Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
                              "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
-            function check(){ 
+            
+            function check(){ //check開始動作
                 var username = e1.value;
                 var password = p1.value;
-                Parse.User.logIn(username,password, {  
+                Parse.User.logIn(username,password, { //開始撈資料 
                     success: function(user) {
                         window.location.href="http://www.pinterest.com/";  	
                     },
-                    error: function(user, error) {  
+                    error: function(user, error) {  //當資料錯誤時的反應
                         document.getElementById("email").innerHTML="帳號或密碼有錯誤!";
                         p1.value="";
                     }
@@ -58,7 +59,3 @@
         </div>
 	</body>
 </html>
-
-
-
-
