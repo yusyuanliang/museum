@@ -13,40 +13,59 @@
     	<link rel="shortcut icon" href="img/favicon.ico">
 
     	<!-- Todo-parse Javascript -->
-    	<!-- <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/> -->
+    	
     	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     	
     	<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
         <script type="text/javascript">
 						
-							Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
-                                                "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
+		Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
+                        "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
 						
+            
+            function check(){ 
 
-						function signUpToParse() {
-							alert('call signUp');
+		        if(p1.value==p2.value){
+                    signUpToParse();
+		          // window.location.href="http://www.pinterest.com/";
+		            return true;
+		            
+		        }
+		        else{
+		            document.getElementById("pw").innerHTML="密碼不相符，請重新輸入";
+		            p1.value="";
+		            p2.value="";
+		        }  
+		    }
+            
+            
+                        function signUpToParse() {
+				//alert('call signUp');
 						    
 
-						    var username = e1.value;
-						    var password = p1.value;
+				var username = e1.value;
+				var password = p1.value;
 						    
-						    Parse.User.signUp(username, password, null, {
-						    	success: function(user) {
-						    		alert('user:' + user.getUsername());
-						      		document.getElementById("email-auth-yes").innerHTML="可使用";
+				Parse.User.signUp(username, password, null, {
+				    success: function(user) {
+				    //alert('user:' + user.getUsername());
+                    window.location.href="http://www.pinterest.com/";
+
+				    document.getElementById("email-auth-yes").innerHTML="可使用";
 						        	
 						    },
 
-						    	error: function(user, error) {
-						       		alert('error:' + error.code + "message:"+ error.message);
-						       		document.getElementById("email-auth-no").innerHTML="不能使用";
+				    error: function(user, error) {
+				    //alert('error:' + error.code + "message:"+ error.message);
+				    document.getElementById("email-auth-no").innerHTML="不能使用";
                                 	// self.$(".login-form .error").html("Invalid username or password. Please try again.").show();
                                 	// self.$(".login-form button").removeAttr("disabled");
                                   
 						      	}
 						    });
 						   }
+            
 
 					</script>
 	</head>
@@ -75,6 +94,7 @@
 				</div>
 			</div>
 		</div>
+<!--
 		<script type="text/javascript">
 		    function check(){ 
 
@@ -90,7 +110,6 @@
 		        }  
 		    }
 		</script>
+-->
 	</body>
 </html>
-
-
