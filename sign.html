@@ -23,7 +23,7 @@
 		Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
                         "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
 						
-            
+ //判斷密碼是否一樣           
             function check(){ 
                 var username = e1.value;
 				var password = p1.value;
@@ -39,13 +39,14 @@
 		        }  
 		    }
             
-            
+ //判斷帳號是否重複           
             function signUpToParse() {
 				//alert('call signUp');
 				
 					var username = e1.value;
 				    var password = p1.value;
                     var password2 = p2.value;
+                
 				    Parse.User.signUp(username, password, null, {
 				    success: function(user) {
 				    //alert('user:' + user.getUsername());
@@ -56,11 +57,12 @@
 				    error: function(user, error) {
 				    //alert('error:' + error.code + "message:"+ error.message);
 				    document.getElementById("email-auth-no").innerHTML="帳號已有人使用，請重新輸入!";
+                    
                     e1.value="";
                     p1.value="";
                     p2.value="";
 						      	}
-						    });
+                                });
 						   }
         </script>
 	</head>
@@ -81,11 +83,12 @@
 					       </form> -->
 					</form>
 					<div class="bn-sign">
-					    <a href="Javascript:signUpToParse()" class="btn btn-block btn-lg btn-primary" onclick="check()">註冊</a>
+<!--					    <a href="Javascript:signUpToParse()" class="btn btn-block btn-lg btn-primary" onclick="check()">註冊</a>-->
+                        <a  class="btn btn-block btn-lg btn-primary" onclick="check()">註冊</a>
 					</div>	
 					<p><span id="pw"></span></p>
-					<span id="email-auth-yes"></span>
-					<span id="email-auth-no"></span>
+					<p><span id="email-auth-yes"></span></p>
+					<p><span id="email-auth-no"></span></p>
 				</div>
 			</div>
 		</div>
