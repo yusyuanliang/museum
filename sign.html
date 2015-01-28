@@ -44,20 +44,21 @@
 				//alert('call signUp');
 				
 					var username = e1.value;
-				    var password = p1.value;	    
-				Parse.User.signUp(username, password, null, {
+				    var password = p1.value;
+                    var password2 = p2.value;
+				    Parse.User.signUp(username, password, null, {
 				    success: function(user) {
 				    //alert('user:' + user.getUsername());
-                    window.location.href="http://www.pinterest.com/";
+                        window.location.href="http://www.pinterest.com/";
 				    //document.getElementById("email-auth-yes").innerHTML="帳號可使用";   	
 						    },
 
 				    error: function(user, error) {
 				    //alert('error:' + error.code + "message:"+ error.message);
 				    document.getElementById("email-auth-no").innerHTML="帳號已有人使用，請重新輸入!";
-                   e1.value="";
-                        p1.value="";
-                        p2.value="";
+                    e1.value="";
+                    p1.value="";
+                    p2.value="";
 						      	}
 						    });
 						   }
