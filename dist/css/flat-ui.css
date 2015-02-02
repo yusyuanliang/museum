@@ -365,10 +365,10 @@ body {
   font-size: 18px;
   line-height: 1.72222;
   color: #34495e;
-  background-color: #fff;
+  background-color: #E8FFE5;
   }
 a {
-  color: #16a085;
+  color: #34495e;
   text-decoration: none;
   -webkit-transition: .25s;
           transition: .25s;
@@ -436,7 +436,7 @@ h6 small,
 h1,
 h2,
 h3 {
-  margin-top: 30px;
+  margin-top: 0px;
   margin-bottom: 15px;
   }
 h4,

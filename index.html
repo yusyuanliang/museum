@@ -26,7 +26,7 @@
                 var password = p1.value;
                 Parse.User.logIn(username,password, { //開始撈資料 
                     success: function(user) {
-                        window.location.href="http://www.pinterest.com/";  	
+                        window.location.href="main.html";  	
                     },
                     error: function(user, error) {  //當資料錯誤時的反應
                         document.getElementById("email").innerHTML="帳號或密碼有錯誤!";
@@ -38,23 +38,22 @@
     </head>
     <body>
         <div class="navigation">	
-            <h1 class="logo">LoveMuseum</h1>
-            <p>不管你是戀愛中或是單一團體，<br>在這裡盡情環遊屬於你的博物館</p>
-                <div class="loginmember">
-                    <form class="forma">
-                        <h6><label>Email</label><input type="email" name="fnamev" id="e1"/></h6>
-                        <h6><label>密　碼</label><input type="password" name="lname" id="p1"/></h6>
-                        <p><span id="email"></span></p>
-                    </form>
-                    <div class="bn-signin">
-                        <a href="sign.html">註冊</a>
-                    </div>
-                    <div class="bn-sign">
-                        <a  class="btn btn-block btn-lg btn-primary" onclick="check()">登入</a>
-                        
-                    </div>
+            <h1 class="love-logo">LoveMuseum</h1>
+            <p>不管你是戀愛中或是單一團體，<br>在這裡盡情環遊屬於你的博物館!</p>
+            <div class="loginmember">
+                <form class="forma form-group">
+                    <h6><label>Email</label><input type="email" name="fnamev" id="e1"/></h6>
+                    <h6><label>密 碼</label><input type="password" name="lname" id="p1"/></h6>
                     
+                </form>
+
+                <div class="bn-login">
+                    <a  class="btn btn-block btn-lg btn-danger" onclick="check()">登入</a>
                 </div>
+                <div class="bn-signin">
+                    <a href="sign.html">註冊</a>
+                </div>
+                <p><span id="email"></span></p>    
             </div>
         </div>
 	</body>

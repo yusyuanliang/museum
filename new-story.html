@@ -2,30 +2,45 @@
 	<head>
 		<title>Lovemuseum</title>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8">
-  		<link href="stylesheets/screen.css" media="all" rel="stylesheet">
-  		<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
-  		<!-- Loading Bootstrap -->
-   		<link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+		<link href="stylesheets/screen.css" media="all" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+		<!-- Loading Bootstrap -->
+		<link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet">
 
-    	<!-- Loading Flat UI -->
-    	<link href="dist/css/flat-ui.css" rel="stylesheet">
-    	<link href="docs/assets/css/demo.css" rel="stylesheet">
-    	<link rel="shortcut icon" href="img/favicon.ico">
+		<!-- Loading Flat UI -->
+		<link href="dist/css/flat-ui.css" rel="stylesheet">
+		<link href="docs/assets/css/demo.css" rel="stylesheet">
+		<link rel="shortcut icon" href="img/favicon.ico">
 
-        
-        <!--(4.?)Parse資料庫，儲存照片、文字-->
-        <script type="text/javascript">				
-            Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
-                             "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
+		
+		<!--(4.?)Parse資料庫，儲存照片、文字-->
+		<script type="text/javascript">				
+			Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
+							 "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
 
-        </script>
-        
-        <!-- (4.?)Javascript前端 -->
+		</script>
+		
+		<!-- (4.?)Javascript前端 -->
 
-    </head>
-    <body>
-        <div class="wrapper">
-                   
-        </div>
+	</head>
+	<body>
+		<div class="wrapper">
+			<nav class="nav-block">
+				<span>LoveMuseum</span>
+				<div class="user-photo"></div>
+			</nav>
+
+			<form action="new-story_submit" method="get" accept-charset="utf-8">
+				 <input type="file" id="">
+				 <!-- <input type="textarea" placeholder="編輯文字" cols="30" rows="5"> -->
+				 <textarea cols="30" rows="5" placeholder="輸入故事內容..."></textarea>
+			</form>
+			<div class="col-xs-3">
+				<a href="#fakelink" class="btn btn-block btn-lg btn-info">發佈</a>
+			</div>
+			<div class="bn-close">
+			    <span>X</span>
+			</div>
+		</div>
 	</body>
 </html>
