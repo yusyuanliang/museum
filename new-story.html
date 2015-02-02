@@ -11,13 +11,33 @@
 		<link href="dist/css/flat-ui.css" rel="stylesheet">
 		<link href="docs/assets/css/demo.css" rel="stylesheet">
 		<link rel="shortcut icon" href="img/favicon.ico">
+         <!-- Todo-parse Javascript -->
+
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    	
+    	<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
 		
 		<!--(4.?)Parse資料庫，儲存照片、文字-->
 		<script type="text/javascript">				
 			Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
-							 "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
-
+                             "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
+           
+            function check(){
+                
+                var StoryText = Parse.Object.extend("StoryText");
+                var StoryText = new StoryText();
+                StoryText.save({
+                StoryText:text.value,
+                }, {
+                success: function(StoryText) {
+                // The object was saved successfully.
+                },
+                error: function(StoryText, error) {
+                // The save failed.
+                // error is a Parse.Error with an error code and description.
+                    }
+                }); 
+            }
 		</script>
 		
 		<!-- (4.?)Javascript前端 -->
@@ -31,12 +51,13 @@
 			</nav>
 
 			<form action="new-story_submit" method="get" accept-charset="utf-8">
-				 <input type="file" id="">
+				 <input type="file" id="photofile">
 				 <!-- <input type="textarea" placeholder="編輯文字" cols="30" rows="5"> -->
-				 <textarea cols="30" rows="5" placeholder="輸入故事內容..."></textarea>
+				 <textarea cols="30" rows="5" placeholder="輸入故事內容..." id="text"></textarea>
 			</form>
 			<div class="col-xs-3">
-				<a href="#fakelink" class="btn btn-block btn-lg btn-info">發佈</a>
+				<a  class="btn btn-block btn-lg btn-info" onclick="check()">發佈</a>
+<!--                <a href="#fakelink" class="btn btn-block btn-lg btn-info" onclick="story()">發佈</a>-->
 			</div>
 			<div class="bn-close">
 			    <span>X</span>
