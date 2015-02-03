@@ -18,7 +18,34 @@
         
       <!-- Loading Bootstrap -->
       <!-- <link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet"> -->
+<!-- Todo-parse Javascript -->
 
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    	
+    	<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+
+		
+		<!--(4.?)Parse資料庫，儲存照片、文字-->
+		<script type="text/javascript">				
+			Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
+                             "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
+           
+            function check(){
+                
+                var Story = Parse.Object.extend("Story");
+                var Story = new Story();
+                Story.save({
+                Story:text.value,
+                }, {
+                success: function(Storyt) {
+                // The object was saved successfully.
+                },
+                error: function(Story, error) {
+                // The save failed.
+                // error is a Parse.Error with an error code and description.
+                    }
+                }); 
+            }
+        </script>
     </head>
     <body>
         <div class="wrapper">
@@ -39,20 +66,17 @@
             <form action="new-story_submit" method="get" accept-charset="utf-8">
               <input type="file" id="">
                    
-              <textarea cols="30" rows="5" placeholder="輸入故事內容..."></textarea>
+              <textarea cols="30" rows="5" placeholder="輸入故事內容..." id="text"></textarea>
             </form>
             </div>
             <div class="modal-footer">
             
             <div class="col-xs-3">
-              <a href="#fakelink" class="btn btn-block btn-lg btn-info">發佈</a>
+              <a class="btn btn-block btn-lg btn-info" onclick="check()">發佈</a>
             </div>
             </div>
           </div>
-          </div>
-
-         
+          </div>       
         </div>
-
-  </body>
+    </body>
 </html>
