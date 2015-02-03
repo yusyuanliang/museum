@@ -19,6 +19,10 @@
 		
 	  <!-- Loading Bootstrap -->
 	  <!-- <link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet"> -->
+      
+       <!-- Todo-parse Javascript -->
+      <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    	
+      <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
 	<!--(4.?)Parse資料庫，儲存照片、文字-->
 		<script type="text/javascript">				
@@ -89,10 +93,10 @@
 			    <form action="new-story_submit" method="get" accept-charset="utf-8">
 			     	<p> 
 						<label>選擇圖片</label> 
-						<input type="file" id="file_input" /> 
+						<input type="file" id="profilePhotoFileUpload" /> 
 					</p>  
 					<div id="result"></div>
-			      	<textarea cols="30" rows="5" placeholder="輸入故事內容..."></textarea>
+			      	<textarea cols="30" rows="5" placeholder="輸入故事內容..." id="text"></textarea>
 			    </form>
 			    </div>
 			    <div class="modal-footer">
@@ -110,7 +114,7 @@
 		<!-- 上傳圖片顯示 -->
 			<script type="text/javascript">
 				var result = document.getElementById("result"); 
-				var input = document.getElementById("file_input"); 
+				var input = document.getElementById("profilePhotoFileUpload"); 
 				 
 				if(typeof FileReader==='undefined'){ 
 				   
