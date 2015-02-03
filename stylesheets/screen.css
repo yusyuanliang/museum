@@ -196,6 +196,8 @@ label{
 /*註冊(sign.html)*/
 
 /*主頁面(main.html)*/
+
+/*新增故事按鈕*/
 .bn-newstory{
   /*z-index: 1;*/
   position: fixed;
@@ -213,6 +215,43 @@ label{
   box-shadow: 3px 1px 2px #888888;
   
 }
+
+/*新增故事內容*/
+.new-dialog{
+  width: auto;
+  padding: 20px;
+}
+
+.new-content{
+  position: relative;
+  padding: 10px;
+  height: 100%;
+  background-color: #E8FFE5;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, .2);
+  /*border-radius: 2px;*/
+
+}
+
+.new-header{
+  min-height: 16.42857143px;
+  padding: 15px;
+  background-color: yellow;
+}
+
+.new-body{
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  background-color: yellow;
+  /*padding: 5%;*/
+  left: 25%;
+  top: 10%;
+}
+
 /*主頁面(main.html)*/
+
+
+
 /*新增文章(new-story.html)*/
 
