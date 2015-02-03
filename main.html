@@ -4,20 +4,54 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
       <link href="stylesheets/screen.css" media="all" rel="stylesheet">
       <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
-      <!-- Loading Bootstrap -->
-      <link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet">
+
 
       <!-- Loading Flat UI -->
       <link href="dist/css/flat-ui.css" rel="stylesheet">
       <link href="docs/assets/css/demo.css" rel="stylesheet">
       <link rel="shortcut icon" href="img/favicon.ico">
 
-
+      <!-- bootstrapt -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+      <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" /> 
+        
+      <!-- Loading Bootstrap -->
+      <!-- <link href="dist/css/vendor/bootstrap.min.css" rel="stylesheet"> -->
 
     </head>
     <body>
         <div class="wrapper">
+        <!-- 新增文章按鈕 -->
+        <div class="bn-newstory" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+          <span>+</span>
+        </div>
 
+        <!-- 新增文章頁面 -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+            <form action="new-story_submit" method="get" accept-charset="utf-8">
+              <input type="file" id="">
+                   
+              <textarea cols="30" rows="5" placeholder="輸入故事內容..."></textarea>
+            </form>
+            </div>
+            <div class="modal-footer">
+            
+            <div class="col-xs-3">
+              <a href="#fakelink" class="btn btn-block btn-lg btn-info">發佈</a>
+            </div>
+            </div>
+          </div>
+          </div>
+
+         
         </div>
 
   </body>
