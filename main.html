@@ -105,11 +105,35 @@
 			    <div class="modal-footer">
 			    
 			    <div class="col-xs-3">
-			       <a class="btn btn-block btn-lg btn-info" onclick="check()">發佈</a>
+			       <a class="btn btn-block btn-lg btn-info" onclick="check()" data-toggle="modal" data-target="#load2">發佈</a>
 			    </div>
 			    </div>
 			  </div>
 			  </div>
+
+
+
+
+			  <!-- loading頁面 -->
+
+			  <div class="modal-dialog" id="load2">
+			  <div class="modal-content ">
+			    <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			    
+			    </div>
+			    <div class="modal-body">
+			    	<div class="progress">
+			    	  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-
+
+valuemax="100" style="width: 50%">
+			    	    <span class="sr-only">100% Complete (danger)</span>
+			    	  </div>
+			    	</div>
+			    	<h1>Loading...</h1>
+			    </div>
+			    <div class="modal-footer">
+			</div>
 		</div>
 
 
