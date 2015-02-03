@@ -25,22 +25,48 @@
 			Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
                              "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
            
+             //base64 編碼的字串
+            var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
+            var file = new Parse.File("myfile.txt", { base64: base64 });
+            
+            //位元組值的陣列建立檔案
+            var bytes = [ 0xBE, 0xEF, 0xCA, 0xFE ];
+            var file = new Parse.File("myfile.txt", bytes);
+            
+            //點擊處理常式或其他函數中，取得該檔案的參考
+            var fileUploadControl = $("#profilePhotoFileUpload")[0];
+            if (fileUploadControl.files.length > 0) {
+                var file = fileUploadControl.files[0];
+                var name = "photo.jpg";
+                var parseFile = new Parse.File(name, file);
+            }
+            
+            parseFile.save().then(function() {
+                // The file has been saved to Parse.
+            }, function(error) {
+                // The file either could not be read, or could not be saved to Parse.
+            });
+            
+            
+            
+           
             function check(){
                 
                 var Story = Parse.Object.extend("Story");
                 var Story = new Story();
                 Story.save({
                 Story:text.value,
+                File:profilePhotoFileUpload.value,
                 }, {
                 success: function(Storyt) {
-                // The object was saved successfully.
+
                 },
                 error: function(Story, error) {
-                // The save failed.
-                // error is a Parse.Error with an error code and description.
+
                     }
-                }); 
-            }
+                });
+  
+                }
         </script>
         
 	</head>
