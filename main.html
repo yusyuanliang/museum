@@ -64,7 +64,8 @@
                 }, {
                 success: function(Story) {
                 	document.getElementById("upload").innerHTML="故事上傳成功!";
-                        
+                    document.getElementById("st-tex").innerHTML= text.value;
+                	document.getElementById("st-pic").innerHTML=  result.innerHTML;    
                 },
                 error: function(Story, error) {
                 	document.getElementById("upload").innerHTML="故事上傳失敗!";
@@ -98,11 +99,11 @@
                 <span class="user-name">移動薯條</span>
                     <div class="user-photo"></div>
                     
-                <div class="story-photo">
-                    <a href="圖片"></a>
+                <div  id="st-pic">
+                    <!-- <a href="圖片"></a> -->
                 </div>
                 
-                <p class="user-title">哈囉!妳好~我是標題...請回覆我!!!</p>
+                <p class="user-title" id="st-tex"></p>
 
                         
                 <div class="main-comment">
