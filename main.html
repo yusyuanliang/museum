@@ -56,11 +56,13 @@
            
             function check(){
                 
+                var user = Parse.User.current();
                 var Story = Parse.Object.extend("Story");
                 var Story = new Story();
                 Story.save({
                 Story:text.value,
                 File:profilePhotoFileUpload.value,
+                User:user,
                 }, {
                 success: function(Story) {
                 	document.getElementById("upload").innerHTML="故事上傳成功!";
