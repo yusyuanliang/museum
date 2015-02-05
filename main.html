@@ -66,7 +66,9 @@
                 }, {
                 success: function(Story) {
                 	document.getElementById("upload").innerHTML="故事上傳成功!";
+                  document.getElementById("load1").style.display = "none";
                 	document.getElementById("storypost").style.display = "block";
+
                     document.getElementById("st-tex").innerHTML= text.value;
                 	document.getElementById("st-pic").innerHTML=  result.innerHTML;    
                 },
@@ -162,7 +164,7 @@
 
 			<!-- 新增文章頁面 -->
 
-			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
 			  <div class="modal-content ">
 
@@ -193,10 +195,10 @@
 
 			    
 			  </div>
-			  </div>
+			  </div> -->
   <!-- loading頁面 -->
 
-      <div class="modal-dialog" id="load2" style="display: none;">
+ <!--      <div class="modal-dialog" id="load2" style="display: none;">
         <div class="modal-content ">
 
           <div class="modal-header">
@@ -215,10 +217,62 @@
 
       </div>     
 
-      </div>
+      </div> -->
+<!-- 新增文章按鈕 -->
 
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!--            <div class="modal-dialog">-->
+            <div class="newstory-page" id="load1">
+<!--                <div class="modal-content">-->
+                <div class="newstory-wall">
+<!--                    <div class="modal-header">-->
+                    <div class="newstory-header">
+                        <span class="newstory-logo">LoveMuseum</span>
+                    </div>
+<!--                    <div class="modal-body">-->
+                    <div class="newstory-body">
+                        <button type="button" class="newstory-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <form action="new-story_submit" method="get" accept-charset="utf-8">
+                            <p>
+                                <label>選擇圖片</label> 
+                                <input type="file" id="profilePhotoFileUpload" /> 
+                            </p>
+                            <div id="result"></div>
+                                <textarea cols="175" rows="5" placeholder="輸入故事內容..." id="text" class="input-story"></textarea>
+                        </form>
+                    </div>
+<!--                    <div class="modal-footer">-->
+                    <div class="newstory-footer">
+                        <div class="bn-po">
+                            <a class="btn btn-block btn-lg btn-info" onclick="check()" data-toggle="modal" data-target="#load2">發佈</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          <!-- loading頁面 -->
 
-
+  <!--        <div class="modal-dialog" id="load2" style="display: none;">-->
+                    <div class="londing-page" id="load2" style="display: none;">
+  <!--              <div class="modal-content ">-->
+                        <div class="newstory-wall"  >
+  <!--          <div class="modal-header">-->
+                            <div class="loding-header">
+                                <span class="newstory-logo">LoveMuseum</span>
+                                <button type="button" class="loding-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            </div>
+  <!--          <div class="modal-body">-->
+                            <div class="loding-body">
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                                        <span class="sr-only">100% Complete (danger)</span>
+                                    </div>
+                                </div>
+                                <h1 id="upload">Loading......</h1>
+                            </div>
+                            <div class="modal-footer"></div>
+                        </div>
+                  </div>
+</div>
 
 			 
 
