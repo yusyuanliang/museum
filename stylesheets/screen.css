@@ -80,10 +80,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   line-height: 48px;
   color: #a57c4f;
 }
+
+
+body{
+  background-color: #E8FFE5;
+}
 .wrapper{
 	position: relative;
 	font-family: '微軟正黑體', cursive;
+  
 }
+
 
 
 /*登入(html.html)*/
@@ -254,20 +261,21 @@ label{
 
 .top-bar {
     position: relative;
-    text-align: center;
-    background-color:#A82F5A;
-    height: 10%; 
     width: 100%;
-    margin: 0% 0 0 0%;
+    height: 55px;
+    background-color: #A82F5A;
+    position: fixed;
+    top: 0;
+    z-index: 1;
       
 }
 
 
 .main-logo {
   color: #F6EB77;
-  padding-top:0px;
   font-family: 'Brush Script MT', cursive;
-  font-size: 50px;
+  font-size: 35px;
+  text-align: center;
 }
 
 .top-user {   
@@ -277,137 +285,116 @@ label{
 }
 
 .top-img {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width:100px;height:100px;
-    background-color: red;
-    border-radius:50px;
-    background-image: url(https://i.imgur.com/uvex87g.jpg);
-    background-size:cover;
-    background-position:center center;
+  position: absolute;
+  background-image: url(../img/user-photo-shadow.png);
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  top: 10px;
+  right: 20px;
 }
 
-.main-message {
+.post-story {
     position: relative;
-    background: yellow;
-    /*  border-radius: 3px;*/
-    margin: 30px 30px;
-    padding: 0px 0px 0px 0px;
-    height: 80%;
+    display: inline-block;
+    background-color: #FFF;
     width: 20%;
+    height: 570px;
+    left: 10%;
+    top: 60px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px #888888;
+    margin: 3%;
     
 }
 
-.formb {
-    /*   float:left;*/
-    position:absolute;
-    width: 100%;
-    height: 50%;
-    top:95%;
+.else-user-photo{
+  position: absolute;
+  background-image: url(https://i.imgur.com/uvex87g.jpg);
+  border-radius: 50px;
+  width: 75px;
+  height: 75px;
+  background-size: cover;
+  left: -20px;
+  top: -20px;
+}
+
+.story-text {
+  font-size: 14px;
+  padding-left: 10px;
+  margin: 0;
+}
+
+.user-name{
+  background-color: #A82F5A;
+  display: block;
+  -webkit-border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -moz-border-radius-topright: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding-left: 65px;
+  /*box-shadow: 0 5px 10px #888888;*/
+  color: #FFF;
+}
+
+.st-photo{
+  /*position: absolute;*/
+  /*background-image: url(../img/newpic2.jpg);*/
+  background-size: cover;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  /*max-width: 100%;*/
 
 }
 
-.bn-comments {
-    position: relative;
-    float:right;
-    margin: 2% 0% 0% 0%;
-    width: 30%;
-    height: 70%;
+.story-message{
+  background-color: rgba(55, 165, 193, 0.41);
+  width: auto;
+  height: 12%;
+}
+.story-messager-photo{
+  position: absolute;
+  background-image: url(../img/user-photo.png);
+  width: 45px;
+  height: 45px;
+  background-size: cover;
+}
+.story-messager-photo h6{
+  position: absolute;
+  top: 35px;
+  left: 5px;
+  font-size: 10px;
+  
 }
 
-.user-name {
-    position:absolute;
-    display: block;
-    color: #E8FFE5; 
-    background-color:#A82F5A;
-    height: 10%; 
-    width: 100%;
-    margin: 0% 0% 0% 0%;
-    /*  text-align: center;*/
-    padding-left: 30%;
-    font-size: 22px;
-      
+.story-messager-text{
+  font-size: 8px;
+  margin: 15px 0 0 50px; 
+  
+}
+.user-message{
+  bottom: 0;
+}
+.input-message{
+  width: 77%;
+  height: 40px;
+  background-color: rgba(206, 206, 206, 0.7);
+}
+.bn-comments{
+  float: right;
+  width: auto;
+  /*height: 10px;*/
+
 }
 
-.user-img {
-    top:-25px;
-    right:25px;
-    width:100px;height:100px;
-    background-color: white;
-    border-radius:50px;
+div[class*="story-"]{
+  padding: 5px 10px 5px 10px;
 }
-
-
-
-.user-photo {
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    width:80px;height:80px;
-    background-color: orange;
-    border-radius:50px;
-    background-image: url(https://i.imgur.com/uvex87g.jpg);
-    background-size:cover;
-    background-position:center center;
-}
-
-.po-photo {
-    position: relative;
-    margin: 0% 0% 5% 2%;
-    width:40px;height:40px;
-    background-color: orange;
-    border-radius:50px; 
-    background-image: url(http://vishengsu.b0.upaiyun.com//uploads/2014/06/hbdg.jpg);
-    background-size:cover;
-    background-position:center center;
-}
-
-.po-a {
-    position:absolute;
-    display: block;
-    margin: 0% 0% 0% 100%;
-    height: 100%; 
-    width: 550%;
-    padding-left: 30%;
-    padding-top:10%;
-}
-
-.story-photo {
-    position:absolute;
-    background-image: url(http://sphotos-f.ak.fbcdn.net/hphotos-ak-xap1/t31.0-8/10504911_727195700684741_241182684565509834_o.jpg);
-    background-size:cover;
-    background-position:center center;
-    width: 100%;
-    height: 50%;
-    /*margin: :50% 30% 20% 50%;*/
-    top:12%;
-}
-
-
-.user-title {
-    position:absolute;
-    width: 100%;
-    height: 10%;
-    top:62%;
-    font-weight:bolder
-}
-
-.main-comment {
-    position:absolute;
-    width: 100%;
-    height: 20%;
-    top:70%;
-}
-
-.input-message {
-    position: absolute;
-    margin: 2% 0% 0% 0%;
-    width: 70%;
-    height: 80%;
-    background-color: white;
-}
-
 
 
 /*新增文章(new-story.html)*/

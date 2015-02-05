@@ -103,50 +103,57 @@
         
 	</head>
 	<body onload="Project()">
-		<div class="wrapper" id="main">
-            
-             <!--  主畫面  -->
-                  
-       
-            <div class="top-bar">
-                <span class="main-logo">LoveMuseum</span>
-                <div class="top-img">
-                    <a href="#" ></a>
-                </div>
-            </div>  
-               <!-- 故事框 -->
-                                  
-                                     
-                                 
-            <div id="storypost" class="main-message" style="display: none;">
-                <span class="user-name">移動薯條</span>
-                <div class="user-photo"></div>
-                    
-                <div id="st-pic"></div>
-                
-                <p class="user-title" id="st-tex"></p>
+		<div class="wrapper" id="main"> 
+      <!--  主畫面  -->
+      <nav class="top-bar">
+        <p class="main-logo">LoveMuseum</p>
+        <div class="top-img">
+            <a href="#" ></a>
+        </div>
+      </nav>  
+         <!-- 故事框 -->
+                            
+                               
+                           
+      <div class="post-story" id="storypost" style="display: none;">
 
-                        
-                <div class="main-comment">
-                    <ul> 
-                        <li>
-                            <div class="po-photo">
-                                <span class="po-a">第1個留言....</span> 
-                            </div>
-                            <div class="po-photo">
-                                <span class="po-a">第2個留言~~~</span> 
-                            </div>
-                        </li>
-                    </ul>
-                    <form class="formb">   
-                        <input type="text" placeholder="留言...." class="input-message">  
-                        <div class="bn-comments">
-                            <a  class="btn btn-block btn-lg btn-primary" >留言</a>
-                        </div>
-                    </form>
-               </div>
-            </div>  
+        <div class="else-user-photo"></div>
+        <span class="user-name">移動薯條</span>
 
+        <div class="st-photo" id="st-pic"></div>
+        
+        <p id="st-tex" class="story-text">我們一再錯過又重逢...重逢又錯過、錯過又重逢</p>
+        
+        
+        <div class="story-message">
+          <div class="story-messager-photo"><h6>張香香</h6></div>                  
+          <p class="story-messager-text">好奇妙的緣分!!!</p>
+         </div>
+        <div class="story-message">
+          <div class="story-messager-photo"><h6>爆米花</h6></div>                  
+          <p class="story-messager-text">注定要在一起的緣分~注定要在一起的緣分~注定要在一起的緣分</p>
+         </div>
+         <!--           <div class="main-comment">
+            <ul> 
+                <li>
+                    <div class="po-photo">
+                        <span class="po-a">第1個留言....</span> 
+                    </div>
+                    <div class="po-photo">
+                        <span class="po-a">第2個留言~~~</span> 
+                    </div>
+                </li>
+            </ul>   -->
+         <div class="user-message">
+           <input type="text" class="input-message">
+           <div class="bn-comments">
+            <a href="#fakelink" class="btn btn-info">留言</a>
+           </div>
+         </div>
+
+      </div>
+
+      
 			<!-- 新增文章按鈕 -->
 			<div class="bn-newstory" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 			  <span>+</span>
@@ -156,80 +163,89 @@
 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			  <div class="modal-dialog">
 			  <div class="modal-content ">
+
 			    <div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
 			    </div>
+
 			    <div class="modal-body">
-			    <form action="new-story_submit" method="get" accept-charset="utf-8">
-			     	<p> 
-						<label>選擇圖片</label> 
-						<input type="file" id="profilePhotoFileUpload" /> 
-					</p>  
-					<div id="result"></div>
-			      	<textarea cols="30" rows="5" placeholder="輸入故事內容..." id="text"></textarea>
-			    </form>
-			    </div>
-			    <div class="modal-footer">
+
+            <form action="new-story_submit" method="get" accept-charset="utf-8">
+              <p> 
+                <label>選擇圖片</label> 
+                <input type="file" id="profilePhotoFileUpload" /> 
+              </p>  
+              <div id="result"></div>
+              <textarea cols="30" rows="5" placeholder="輸入故事內容..." id="text"></textarea>
+            </form>
+
+			     </div>
+
 			    
-			    <div class="col-xs-3">
-			       <a class="btn btn-block btn-lg btn-info" onclick="check()" data-toggle="modal" data-target="#load2">發佈</a>
-			    </div>
-			    </div>
+			    
+            <div class="col-xs-3">
+              <a class="btn btn-block btn-lg btn-info" onclick="check()" data-toggle="modal" data-target="#load2">發佈</a>
+            </div>
+
+			    
 			  </div>
 			  </div>
+  <!-- loading頁面 -->
+
+      <div class="modal-dialog" id="load2" style="display: none;">
+        <div class="modal-content ">
+
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+
+          <div class="modal-body">
+            <div class="progress">
+              <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                <span class="sr-only">100% Complete (danger)</span>
+              </div>
+            </div>
+            <h1 id="upload"></h1>
+          </div>
+        </div>
+
+      </div>     
+
+      </div>
 
 
 
 
-			  <!-- loading頁面 -->
-
-			  <div class="modal-dialog" id="load2" style="display: none;">
-			  <div class="modal-content ">
-			    <div class="modal-header">
-			    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			    
-			    </div>
-			    <div class="modal-body">
-			    	<div class="progress">
-			    	  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-
-
-valuemax="100" style="width: 100%">
-			    	    <span class="sr-only">100% Complete (danger)</span>
-			    	  </div>
-			    	</div>
-			    	<h1 id="upload"></h1>
-			    </div>
-			    <div class="modal-footer">
-			</div>
-		</div>
+			     
 
 
 		
 		<!-- 上傳圖片顯示 -->
-			<script type="text/javascript">
-				var result = document.getElementById("result"); 
-				var input = document.getElementById("profilePhotoFileUpload"); 
-				 
-				if(typeof FileReader==='undefined'){ 
-				   
-				    input.setAttribute('disabled','disabled'); 
-				}else{ 
-				    input.addEventListener('change',readFile,false); 
-				} 
-				function readFile(){ 
-				    var file = this.files[0]; 
-				    if(!/image\/\w+/.test(file.type)){ 
-				        alert("檔案錯了喔><"); 
-				        return false; 
-				    } 
-				    var reader = new FileReader(); 
-				    reader.readAsDataURL(file); 
-				    reader.onload = function(e){ 
-				        result.innerHTML = '<img src="'+this.result+'" alt=""/>' 
-				    } 
-				} 
-			</script>
+    <script type="text/javascript">
+      var result = document.getElementById("result"); 
+      var input = document.getElementById("profilePhotoFileUpload"); 
+       
+      if(typeof FileReader==='undefined'){ 
+         
+          input.setAttribute('disabled','disabled'); 
+      }else{ 
+          input.addEventListener('change',readFile,false); 
+      } 
+      function readFile(){ 
+          var file = this.files[0]; 
+          if(!/image\/\w+/.test(file.type)){ 
+              alert("檔案錯了喔><"); 
+              return false; 
+          } 
+          var reader = new FileReader(); 
+          reader.readAsDataURL(file); 
+          reader.onload = function(e){ 
+              result.innerHTML = '<img src="'+this.result+'" alt=""/>' 
+          } 
+      } 
+    </script>
                   
                   
    
