@@ -60,7 +60,7 @@
                 var Story = Parse.Object.extend("Story");
                 var Story = new Story();
                 Story.save({
-                Story:text.value,
+                Text:text.value,
                 File:profilePhotoFileUpload.value,
                 User:user,
                 }, {
@@ -78,11 +78,31 @@
                 }
             
                 // 以時間排序
-                query.descending("updataAt");
+                //query.descending("updataAt");
+            
+            //
+            function Project(){
+                var Story = Parse.Object.extend("Story");
+                var query = new Parse.Query(Story);
+                query.equalTo("file","Story");
+                query.find({
+                    success: function(results) {
+                    alert("Successfully retrieved " + results.length + " Story.");
+                    // Do something with the returned Parse.Object values
+                    for (var i = 0; i < results.length; i++) {
+                    var object = results[i];
+                    alert(object.id + ' - ' + object.get('updataAt'));
+                    }
+                },
+                error: function(error) {
+                alert("Error: " + error.code + " " + error.message);
+                }
+            });
+            }
         </script>
         
 	</head>
-	<body>
+	<body onload="Project()">
 		<div class="wrapper" id="main">
             
              <!--  主畫面  -->
