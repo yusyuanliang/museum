@@ -94,28 +94,30 @@
                     for (var i = 0; i < results.length; i++) {
                     var object = results[i];
 
-                    
-                     var img = $("<img>").attr({
-                                  'src': 'http://l.yimg.com/mq/i/nws/mntl/20100317_FC_WingLee.jpg'
-                              });
-                              $("body").append(img);
-                                      // $('.wrapper').append('<div id="storypost"></div>');
+                  // 顯示故事
                                               
-                      $(".wrapper").append(object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
-                    
-                      $(".wrapper").append(object.id + ' - ' + object.get('Text') +'<br/>'); 
-                      $(".wrapper").append(storypost.innerHTML);
+                    var pic = (object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
+                    var text = (object.id + ' - ' + object.get('Text') +'<br/>'); 
+                    var template = $('.template').html();
 
-                    // (待研究)顯示圖片
+                    template = template.replace("none", "block");
+                    template = template.replace("$_storyImage", "<img src='" + pic[i] + "'>");
+                    template = template.replace("$_storyMessage", text[i])
+                    $('.frame').append(template);  
                     
-                    // alert(object.id + ' - ' + object.get('File'))
-                    // alert(object.get('File').url);
                     
-                                
+                     // var img = $("<img>").attr({
+                     //              'src': 'http://l.yimg.com/mq/i/nws/mntl/20100317_FC_WingLee.jpg'
+                     //          });
+                     //          $("body").append(img);
+                     //                  // $('.wrapper').append('<div id="storypost"></div>');
+                                              
+                     //  $(".wrapper").append(object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
                     
-                    //alert(object.id + ' - ' + object.get('File'));
-                    // alert(object.id + ' - ' + object.get('Text'));
-                    // document.write(object.id + ' - ' + object.get('Text'));
+                     //  $(".wrapper").append(object.id + ' - ' + object.get('Text') +'<br/>'); 
+                     //  $(".wrapper").append(storypost.innerHTML);
+
+                    
                     }
                 },
                 error: function(error) {
@@ -138,44 +140,48 @@
          <!-- 故事框 -->
                             
                                
-                           
-      <div class="post-story" id="storypost" style="display: none;">
+      <div class="frame">
+        <div class="template">
+          <div class="post-story" id="storypost" style="display: none;">
 
-        <div class="else-user-photo"></div>
-        <span class="user-name">移動薯條</span>
+            <div class="else-user-photo"></div>
+            <span class="user-name">移動薯條</span>
 
-        <div class="st-photo" id="st-pic"></div>
-        
-        <p id="st-tex" class="story-text">我們一再錯過又重逢...重逢又錯過、錯過又重逢</p>
-        
-        
-        <div class="story-message">
-          <div class="story-messager-photo"><h6>張香香</h6></div>                  
-          <p class="story-messager-text">好奇妙的緣分!!!</p>
-         </div>
-        <div class="story-message">
-          <div class="story-messager-photo"><h6>爆米花</h6></div>                  
-          <p class="story-messager-text">注定要在一起的緣分~注定要在一起的緣分~注定要在一起的緣分</p>
-         </div>
-         <!--           <div class="main-comment">
-            <ul> 
-                <li>
-                    <div class="po-photo">
-                        <span class="po-a">第1個留言....</span> 
-                    </div>
-                    <div class="po-photo">
-                        <span class="po-a">第2個留言~~~</span> 
-                    </div>
-                </li>
-            </ul>   -->
-         <div class="user-message">
-           <input type="text" class="input-message">
-           <div class="bn-comments">
-            <a href="#fakelink" class="btn btn-info">留言</a>
-           </div>
-         </div>
+            <div class="st-photo" id="st-pic">$_storyImage</div>
+            
+            <p id="st-tex" class="story-text">$_storyMessage</p>
+            
+            
+            <div class="story-message">
+              <div class="story-messager-photo"><h6>張香香</h6></div>                  
+              <p class="story-messager-text">好奇妙的緣分!!!</p>
+             </div>
+            <div class="story-message">
+              <div class="story-messager-photo"><h6>爆米花</h6></div>                  
+              <p class="story-messager-text">注定要在一起的緣分~注定要在一起的緣分~注定要在一起的緣分</p>
+             </div>
+             <!--           <div class="main-comment">
+                <ul> 
+                    <li>
+                        <div class="po-photo">
+                            <span class="po-a">第1個留言....</span> 
+                        </div>
+                        <div class="po-photo">
+                            <span class="po-a">第2個留言~~~</span> 
+                        </div>
+                    </li>
+                </ul>   -->
+             <div class="user-message">
+               <input type="text" class="input-message">
+               <div class="bn-comments">
+                <a href="#fakelink" class="btn btn-info">留言</a>
+               </div>
+             </div>
 
-      </div>
+          </div>
+        </div>
+      </div>                     
+      
 
       
 			<!-- 新增文章按鈕 -->
