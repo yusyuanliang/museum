@@ -52,34 +52,35 @@
             });
             
             
-            
-           
             function check(){
-                
                 var user = Parse.User.current();
-                var Story = Parse.Object.extend("Story");
-                var Story = new Story();
-                Story.save({
-                Text:text.value,
-                File:profilePhotoFileUpload.value,
-                User:user,
-                }, {
-                success: function(Story) {
-                	document.getElementById("upload").innerHTML="故事上傳成功!";
-                  document.getElementById("load1").style.display = "none";
-                	document.getElementById("storypost").style.display = "block";
-                  document.getElementById("st-tex").innerHTML= text.value;
-                	document.getElementById("st-pic").innerHTML=  result.innerHTML;    
-                },
-                error: function(Story, error) {
-                	document.getElementById("upload").innerHTML="故事上傳失敗!";
-                    }
-                });
-  
+                var fileUploadControl = $("#profilePhotoFileUpload")[0];
+                if (fileUploadControl.files.length > 0) {
+                    var file = fileUploadControl.files[0];
+                    var name = "photo.jpg";
+                    var parseFile = new Parse.File(name, file);
+                    parseFile.save().then(function() {
+                        var Story = new Parse.Object("Story");
+                        Story.set("User", user);
+                        Story.set("File", parseFile);
+                        Story.set("Text", text.value);
+                        Story.save(
+                        {
+                        }, {
+                            success: function(Story) {
+                                document.getElementById("upload").innerHTML="故事上傳成功!";
+                                document.getElementById("load1").style.display = "none";
+                                document.getElementById("storypost").style.display = "block";  
+                            },
+                            error: function(Story, error) {
+                                document.getElementById("upload").innerHTML="故事上傳失敗!";
+                            }
+                        });
+                        
+                    }, function(error) {
+                    });
                 }
-            
-                // 以時間排序
-                //query.descending("updataAt");
+            };
             
             //取資料
             function Project(){
@@ -97,7 +98,7 @@
                   // 顯示故事
                                               
                     var pic = (object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
-                    var text = (object.id + ' - ' + object.get('Text') +'<br/>'); 
+                    var text = (object.get('Text') +'<br/>'); 
                     var template = $('.template').html();
 
                     template = template.replace("none", "block");
