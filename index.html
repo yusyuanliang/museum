@@ -34,6 +34,10 @@
                     }
                 });
             }
+            //密碼錯誤通知顯示消失
+            function email(){
+            document.getElementById("email").innerHTML="";
+            }
         </script>
     </head>
     <body>
@@ -42,8 +46,8 @@
             <p>不管你是戀愛中或是單一團體，<br>在這裡盡情環遊屬於你的博物館!</p>
             <div class="loginmember">
                 <form class="forma form-group">
-                    <h6><label>Email</label><input type="email" name="fnamev" id="e1"/></h6>
-                    <h6><label>密 碼</label><input type="password" name="lname" id="p1"/></h6>
+                    <h6><label>Email</label><input type="email" name="fnamev" id="e1" onclick="email()"/></h6>
+                    <h6><label>密 碼</label><input type="password" name="lname" id="p1" onclick="email()"/></h6>
                     
                 </form>
 

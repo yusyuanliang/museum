@@ -57,6 +57,11 @@
                     }
                 });
             }
+            //密碼錯誤通知顯示消失
+            function email(){
+                document.getElementById("email-auth-no").innerHTML="";
+                document.getElementById("pw").innerHTML="";
+            }
         </script>
     </head>
     
@@ -67,8 +72,8 @@
                     <h1>註冊會員</h1>
                     <form class="forma">
                         <h6><label>Email</label><input type="text" name="fname" id="e1"/></h6>
-                        <h6><label>密　碼</label><input type="password" name="lname" id="p1" placeholder=""/></h6>
-                        <h6><label>確認密碼</label><input type="password" name="lname" id="p2" placeholder=""/></h6>
+                        <h6><label>密　碼</label><input type="password" name="lname" id="p1" placeholder="" onclick="email()"/></h6>
+                        <h6><label>確認密碼</label><input type="password" name="lname" id="p2" placeholder="" onclick="email()"/></h6>
                     </form>
                     <div class="bn-sign">
                         <a  class="btn btn-block btn-lg btn-danger" onclick="check()">註冊</a>
