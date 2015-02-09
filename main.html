@@ -68,8 +68,7 @@
                 	document.getElementById("upload").innerHTML="故事上傳成功!";
                   document.getElementById("load1").style.display = "none";
                 	document.getElementById("storypost").style.display = "block";
-
-                    document.getElementById("st-tex").innerHTML= text.value;
+                  document.getElementById("st-tex").innerHTML= text.value;
                 	document.getElementById("st-pic").innerHTML=  result.innerHTML;    
                 },
                 error: function(Story, error) {
@@ -95,18 +94,28 @@
                     for (var i = 0; i < results.length; i++) {
                     var object = results[i];
 
-                    document.write(object.id + ' - ' + object.get('Text'));
-
-
+                    
+                     var img = $("<img>").attr({
+                                  'src': 'http://l.yimg.com/mq/i/nws/mntl/20100317_FC_WingLee.jpg'
+                              });
+                              $("body").append(img);
+                                      // $('.wrapper').append('<div id="storypost"></div>');
+                                              
+                      $(".wrapper").append(object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
+                    
+                      $(".wrapper").append(object.id + ' - ' + object.get('Text') +'<br/>'); 
+                      $(".wrapper").append(storypost.innerHTML);
 
                     // (待研究)顯示圖片
                     
                     // alert(object.id + ' - ' + object.get('File'))
                     // alert(object.get('File').url);
-                    //             $(".wrapper").append(object.get('File') + '- <img src="' +object.get("File").url+ '"width="130px">'  +'<br/>');
-
-                    // alert(object.id + ' - ' + object.get('Text'));
+                    
+                                
+                    
                     //alert(object.id + ' - ' + object.get('File'));
+                    // alert(object.id + ' - ' + object.get('Text'));
+                    // document.write(object.id + ' - ' + object.get('Text'));
                     }
                 },
                 error: function(error) {
@@ -294,7 +303,6 @@
     <script type="text/javascript">
       var result = document.getElementById("result"); 
       var input = document.getElementById("profilePhotoFileUpload"); 
-       
       if(typeof FileReader==='undefined'){ 
          
           input.setAttribute('disabled','disabled'); 
@@ -309,12 +317,14 @@
           } 
           var reader = new FileReader(); 
           reader.readAsDataURL(file); 
+
           reader.onload = function(e){ 
               result.innerHTML = '<img src="'+this.result+'" alt=""/>' 
           } 
+
       } 
     </script>
-                  
+     
                   
    
                   
