@@ -12,24 +12,28 @@
 	  <link rel="shortcut icon" href="img/favicon.ico">
 
 
+	
 	  <!-- Loading Bootstrap -->
-	  <!-- Bootstrap - CSS 巧瑜專用 -->
+        <!-- Bootstrap - CSS -->
+<!-- 提醒我自己bootstrapt-->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
       
-      <!-- Bootstrap - Javascript(?)-->
+            <!-- Bootstrap - Javascript(?)-->
 	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	  <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
 	  <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" /> 
+		
       
       
-      
+       <!-- Todo-parse Javascript -->
+      <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    	
+      <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
-	<!--(4.?)Parse資料庫，儲存照片、文字-->
-		<script type="text/javascript">				
-			Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt",
-                             "zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
+	   <!--(4.?)Parse資料庫，儲存照片、文字-->
+		<script type="text/javascript">
+            Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt","zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
            
              //base64 編碼的字串
             var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
@@ -128,32 +132,6 @@
                 }
             });
             }
-            
-             //刪除
-             function del(){
-                var Story = Parse.Object.extend("Story");
-                var query = new Parse.Query(Story);
-                query.get("Text",{
-                    success:function(Story){
-                    Story.destroy();
-                        Story.remove(Text); 
-                        window.location="main.html";
-                        Story.save();
-                    },
-                    error:function(Story,error){
-                    alert("Error: " + error.code + " " + error.message);
-                    }
-                
-                });
-//                        query.destroy({
-//                        success:function(Story){
-//                        alert("data del");
-//                    },
-//                    error:function(Story,error){
-//                         alert("NO data del");
-//                    }
-//                });
-            }
         </script>
         
 	</head>
@@ -169,14 +147,29 @@
          <!-- 故事框 -->
                             
                                
-      <div class="frame">
-        <div class="template">
-          <div class="post-story" id="storypost" style="display: none;">
-
-            <div class="else-user-photo"></div>
-            <span class="user-name">移動薯條
-              <button type="button"  onclick="del()">delete</button>
-              </span>
+            <div class="frame">
+                <div class="template">
+                    <div class="post-story" id="storypost" style="display: none;">
+                        <div class="else-user-photo"></div>
+                            <span class="user-name">移動薯條</span>
+              
+                        
+                          
+<!--  編輯ICON   巧瑜     -->
+      
+                        
+                        <div class="dropdown ">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+    
+  </button>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+  </ul>
+</div>
+              
+              
 
             <div class="st-photo" id="st-pic">$_storyImage</div>
             
@@ -213,6 +206,11 @@
         </div>
       </div>                     
       
+<!--  編輯ICON   巧瑜     --> 
+            
+            
+            
+            
 
       
 			<!-- 新增文章按鈕 -->
