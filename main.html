@@ -148,6 +148,31 @@
                     }
                 
                 });
+                 
+                 //更新
+            function Updating(){
+                var user = Parse.User.current();
+                var Story = Parse.Object.extend("Story");
+                var Story = new Story();
+                Story.set("User", user);
+                Story.set("File", parseFile);
+                Story.set("Text", text.value);
+                Story.save(null, {
+                success: function(Story) {
+                    // Now let's update it with some new data. In this case, only cheatMode and score
+                    // will get sent to the cloud. playerName hasn't changed.
+                    
+                    Story.set("Text", "1338");
+                    Story.save();
+                }
+            });
+            }
+                 
+                 
+                 
+                 
+                 
+                 
 //                        query.destroy({
 //                        success:function(Story){
 //                        alert("data del");
@@ -176,8 +201,10 @@
                 <div class="template">
                     <div class="post-story" id="storypost" style="display: none;">
                         <div class="else-user-photo"></div>
+                        
                             <span class="user-name">移動薯條
                                 <button type="button"  onclick="del()">delete</button>
+                                <a class="btn btn-info" onclick="Updating()">更新</a>
                             </span>
               
                         
