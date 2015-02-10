@@ -132,6 +132,31 @@
                 }
             });
             }
+            //刪除
+             function del(){
+                var Story = Parse.Object.extend("Story");
+                var query = new Parse.Query(Story);
+                query.get("Text",{
+                    success:function(Story){
+                    Story.destroy();
+                        Story.remove(Text); 
+                        window.location="main.html";
+                        Story.save();
+                    },
+                    error:function(Story,error){
+                    alert("Error: " + error.code + " " + error.message);
+                    }
+                
+                });
+//                        query.destroy({
+//                        success:function(Story){
+//                        alert("data del");
+//                    },
+//                    error:function(Story,error){
+//                         alert("NO data del");
+//                    }
+//                });
+            }
         </script>
         
 	</head>
@@ -151,7 +176,9 @@
                 <div class="template">
                     <div class="post-story" id="storypost" style="display: none;">
                         <div class="else-user-photo"></div>
-                            <span class="user-name">移動薯條</span>
+                            <span class="user-name">移動薯條
+                                <button type="button"  onclick="del()">delete</button>
+                            </span>
               
                         
                           
