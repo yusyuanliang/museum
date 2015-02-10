@@ -102,14 +102,16 @@
                     var object = results[i];
 
                   // 顯示故事
-                                              
-                    var pic = (object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
+                    var profilePhoto = object.get("File");
+                    var url = (profilePhoto.url());
+                    alert('url = ' + profilePhoto.url());                          
+                    
                     var text = (object.get('Text') +'<br/>'); 
                     var template = $('.template').html();
 
                     template = template.replace("none", "block");
-                    template = template.replace("$_storyImage", "<img src='" + pic[i] + "'>");
-                    template = template.replace("$_storyMessage", text[i])
+                    template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
+                    template = template.replace("$_storyMessage", text);
                     $('.frame').append(template);  
                     
                     
@@ -124,7 +126,7 @@
                      //  $(".wrapper").append(object.id + ' - ' + object.get('Text') +'<br/>'); 
                      //  $(".wrapper").append(storypost.innerHTML);
 
-                    
+                    // var pic = (object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
                     }
                 },
                 error: function(error) {
