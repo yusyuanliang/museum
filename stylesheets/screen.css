@@ -560,3 +560,21 @@ div[class*="story-"]{
     vertical-align: baseline;
     /*    box-sizing: border-box;*/
 }
+
+/*icon*/
+
+.st-deitor {
+    float:right;
+}
+
+
+
+.st-dd {
+    color: #A82F5A;
+    background: transparent;
+}
+
+
+.st-ddd {
+    left: -120px;
+} 
