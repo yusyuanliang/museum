@@ -136,20 +136,64 @@
             }
             //刪除
              function del(){
-                var Story = Parse.Object.extend("Story");
+                var Story = Parse.Object.extend("Test");
                 var query = new Parse.Query(Story);
-                query.get("Text",{
-                    success:function(Story){
-                    Story.destroy();
-                        Story.remove(Text); 
-                        window.location="main.html";
-                        Story.save();
+                //query.notEqualTo("objectId");
+                //query.equalTo("onclick");
+                query.find({
+                    success: function(results) {
+//                        alert("Successfully retrieved " + results.length + " scores.");
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+//                            query.get("word","1"{
+//                            //object.destroy();
+//                            });
+                            results[0].destroy(onclick);
+                            alert(object.id + ' - ' + object.get('word'));
+                        }
                     },
-                    error:function(Story,error){
-                    alert("Error: " + error.code + " " + error.message);
+                    error: function(error) {
+                        //alert("Error: " + error.code + " " + error.message);
                     }
-                
                 });
+            }
+            //刪除(2)              
+//             function del(){
+//                var Story = Parse.Object.extend("Test");
+//                var query = new Parse.Query(Story);
+//               
+//                query.get("Test",{
+//                    success:function(Story){
+//                    Story.destroy();
+//                        Story.remove(Text); 
+//                        window.location="main.html";
+//                        Story.save();
+//                    },
+//                    error:function(Story,error){
+//                    alert("Error: " + error.code + " " + error.message);
+//                    }
+//                
+//                });
+//             
+//            }
+            
+            //刪除(3)
+//                function del(){
+//                var Story = Parse.Object.extend("Test");
+//                var query = new Parse.Query(Story);
+//                query.equalTo("word","3");
+//                query.find({
+//                    success: function(result) {
+//                        results.destroy({
+//                            success:function(object){
+//                                alert('Delete Successful');
+//                            },
+//                            error:function(object,error){
+//                                alert('Delete failed');
+//                            }
+//                        });
+//  
+//                    }
                  
                  //更新
             function Updating(){
