@@ -113,7 +113,8 @@
                     template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
                     template = template.replace("$_storyMessage", text);
                         
-                    template = template.replace("$_story", object.id); //刪除資料變數
+                    template = template.replace("$_story", object.id);//刪除資料變數
+                        template = template.replace("$_storyText", object.id);
                     $('.frame').append(template);  
                     
                     
@@ -153,23 +154,33 @@
           }
                  
                  //更新
-            function Updating(){
-                var user = Parse.User.current();
+            function Updating(object){
                 var Story = Parse.Object.extend("Story");
-                var Story = new Story();
-                Story.set("User", user);
-                Story.set("File", parseFile);
-                Story.set("Text", text.value);
-                Story.save(null, {
-                success: function(Story) {
-                    // Now let's update it with some new data. In this case, only cheatMode and score
-                    // will get sent to the cloud. playerName hasn't changed.
-                    
-                    Story.set("Text", "1338");
-                    Story.save();
-                }
-            });
-            }     
+                var query = new Parse.Query(Story);
+                query.equalTo("objectId", object);
+                query.first({
+                    success: function(Story) {
+                        Story.save(null, {
+                            success: function(Story) {
+
+                                Story.set("Text", "741258963");
+                                Story.save({
+                                    success: function(Story) {
+                                       window.location.href="main.html";
+                                    },
+                                    error: function(error) {
+                                    }
+                                });
+                            },
+                            
+                             error: function(error) {
+                             }
+                        });
+                    },
+                    error: function(error) {
+                    }
+                }); 
+            }  
         </script>
         
 	</head>
@@ -198,7 +209,7 @@
                         
                             <span class="user-name">移動薯條
                                 <button type="button"  onclick="del('$_story')">delete</button>
-                                <a class="btn btn-info" onclick="Updating()">更新</a>
+                                <a class="btn btn-info" onclick="Updating('$_storyText')">更新</a>
                             </span>
               
                         
