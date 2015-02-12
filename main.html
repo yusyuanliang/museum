@@ -112,6 +112,8 @@
                     template = template.replace("none", "block");
                     template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
                     template = template.replace("$_storyMessage", text);
+                        
+                    template = template.replace("$_story", object.id); //刪除資料變數
                     $('.frame').append(template);  
                     
                     
@@ -134,66 +136,21 @@
                 }
             });
             }
-            //刪除
-             function del(){
-                var Story = Parse.Object.extend("Test");
-                var query = new Parse.Query(Story);
-                //query.notEqualTo("objectId");
-                //query.equalTo("onclick");
-                query.find({
-                    success: function(results) {
-//                        alert("Successfully retrieved " + results.length + " scores.");
-                        for (var i = 0; i < results.length; i++) {
-                            var object = results[i];
-//                            query.get("word","1"{
-//                            //object.destroy();
-//                            });
-                            results[0].destroy(onclick);
-                            alert(object.id + ' - ' + object.get('word'));
-                        }
-                    },
-                    error: function(error) {
-                        //alert("Error: " + error.code + " " + error.message);
-                    }
-                });
-            }
-            //刪除(2)              
-//             function del(){
-//                var Story = Parse.Object.extend("Test");
-//                var query = new Parse.Query(Story);
-//               
-//                query.get("Test",{
-//                    success:function(Story){
-//                    Story.destroy();
-//                        Story.remove(Text); 
-//                        window.location="main.html";
-//                        Story.save();
-//                    },
-//                    error:function(Story,error){
-//                    alert("Error: " + error.code + " " + error.message);
-//                    }
-//                
-//                });
-//             
-//            }
-            
-            //刪除(3)
-//                function del(){
-//                var Story = Parse.Object.extend("Test");
-//                var query = new Parse.Query(Story);
-//                query.equalTo("word","3");
-//                query.find({
-//                    success: function(result) {
-//                        results.destroy({
-//                            success:function(object){
-//                                alert('Delete Successful');
-//                            },
-//                            error:function(object,error){
-//                                alert('Delete failed');
-//                            }
-//                        });
-//  
-//                    }
+          //刪除        
+          function del(object){
+              var Story = Parse.Object.extend("Story");
+              var query = new Parse.Query(Story);
+              query.equalTo("objectId", object);
+              query.first({
+                  success: function(object){
+                      object.destroy();
+                      window.location.href="main.html";   
+                  },
+                  error:function(objectId,error){
+                      alert("Error: " + error.code + " " + error.message);
+                  }
+              });
+          }
                  
                  //更新
             function Updating(){
@@ -212,22 +169,7 @@
                     Story.save();
                 }
             });
-            }
-                 
-                 
-                 
-                 
-                 
-                 
-//                        query.destroy({
-//                        success:function(Story){
-//                        alert("data del");
-//                    },
-//                    error:function(Story,error){
-//                         alert("NO data del");
-//                    }
-//                });
-         
+            }     
         </script>
         
 	</head>
@@ -255,7 +197,7 @@
                         <div class="else-user-photo"></div>
                         
                             <span class="user-name">移動薯條
-                                <button type="button"  onclick="del()">delete</button>
+                                <button type="button"  onclick="del('$_story')">delete</button>
                                 <a class="btn btn-info" onclick="Updating()">更新</a>
                             </span>
               
