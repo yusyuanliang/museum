@@ -94,7 +94,7 @@
                     template = template.replace("$_storyMessage", text);
                         
                     template = template.replace("$_story", object.id);//刪除資料變數
-                    template = template.replace("$_storyText", object.id);
+                    template = template.replace("$_storyText", object.id);//編輯顯示
                     $('.frame').append(template);  
                     
                     
@@ -140,8 +140,11 @@
               });
           }
                  
+            var parseupdating="";
+            
+            
             //顯示要編輯的資料
-            function u2(object){
+            function Updating1(object){
                 var Story = Parse.Object.extend("Story");
                 var query = new Parse.Query(Story);
                 query.equalTo("objectId", object);
@@ -149,20 +152,23 @@
                     success: function(Story) {
                         var text = Story.get('Text');
                         document.getElementById("text2").innerHTML=text;
-                    },
+                        parseupdating=Story.get('object');
+},
                     error: function(error) {
                     }
                 });
             }
             
+            //找尋id
             
             
                  
             //資料確定編輯
-            function Updating(object){
+            function Updating2(object){
                 var Story = Parse.Object.extend("Story");
                 var query = new Parse.Query(Story);
-                query.equalTo("objectId", object);
+                var object=parseupdating;
+                //query.equalTo("objectId", object);
                 query.first({
                     success: function(Story) {
                         Story.save(null, {
@@ -219,8 +225,8 @@
                             </button>
                             <ul class=" dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
                                 <!-- <li><a onclick="choosedel()">刪除</a></li> -->
-                                <li><a onclick="del('$_story')">刪除</a></li>
-                                <li><a onclick="u2('$_storyText')">編輯</a></li>
+                                <li><a onclick="del('$_story')" >刪除</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal"  onclick="Updating1('$_storyText')" data-target="#myModal2">編輯</a></li>
                                 
                                 
                             </ul>
@@ -281,7 +287,6 @@
 			  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 			</div>
 
-			<!-- 新增文章頁面 -->
 
 
 <!-- 新增文章按鈕 -->
@@ -332,32 +337,33 @@
     
     
     
+
+</div>
+
 <!--  編輯視窗  巧瑜-->
-     <div class="newstory-page" id="load1">
-                <div class="newstory-wall">
-                    <div class="newstory-header">
-                        <span class="newstory-logo">LoveMuseum</span>
-                    </div>
-                    <div class="newstory-body">
-                        <button type="button" class="newstory-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <form action="new-story_submit" method="get" accept-charset="utf-8">
-                            <div id="result"></div>
-                                <textarea cols="170" rows="5" placeholder="輸入故事內容..." id="text" class="input-story"></textarea>
-                        </form>
-                    </div>
-                    <div class="newstory-footer">
-                        <div class="bn-po">
-                            <a class="btn btn-block btn-lg btn-info" onclick="check()" data-toggle="modal" data-target="#load2">確定</a>
+           <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="newstory-page" id="load1">
+                    <div class="newstory-wall">
+                        <div class="newstory-header">
+                            <span class="newstory-logo">LoveMuseum</span>
+                        </div>
+                        <div class="newstory-body">
+                            <button type="button" class="newstory-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                            </button>
+                            <form action="new-story_submit" method="get" accept-charset="utf-8">
+
+                                <div id="result"></div>
+                                <textarea cols="170" rows="5" placeholder="輸入故事內容..." id="text2" class="input-story"></textarea>
+                            </form>
+                        </div>
+                        <div class="newstory-footer">
+                            <div class="bn-po">
+                                <a class="btn btn-info" onclick="Updating2()" id="upd">確認編輯</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-</div>
-
-
-			 
-            
-            
             
             
 
