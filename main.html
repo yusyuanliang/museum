@@ -91,7 +91,7 @@
                     template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
                     template = template.replace("$_storyMessage", text);
                         
-                    template = template.replace("$_story", object.id);//刪除資料變數
+                    template = template.replace("$_delbox", object.id);//刪除框變數
                     template = template.replace("$_storyText", object.id);//編輯顯示
                     $('.frame').append(template);  
                     
@@ -115,21 +115,35 @@
                 }
             });
             }
-          //刪除  
-          function choosedel(){
-            // document.getElementById("del").style.display = "block";
-            var styesno = $('.st-yes-no').html();
-            styesno = styesno.replace("none", "block");
             
-            $('.yesno').append(styesno);  
+     var parseupdating="";
+            
+          //刪除  
+          function choosedel(object){
+
+              var styesno = $('.st-yes-no').html();
+              $('.yesno').append(styesno);
+             var Story = Parse.Object.extend("Story");
+                var query = new Parse.Query(Story);
+                query.equalTo("objectId", object);
+              query.first({
+                    success: function(Story) {
+                        parseupdating =  Story.id; 
+                    },
+                   error: function(error) {
+                    }
+                });
           }
+            
+            
           function del(object){
               var Story = Parse.Object.extend("Story");
               var query = new Parse.Query(Story);
-              query.equalTo("objectId", object);
+               query.equalTo("objectId", parseupdating);
               query.first({
-                  success: function(object){
-                      object.destroy();
+                  success: function(Story){
+                      
+                      Story.destroy();
                       window.location.href="main.html";   
                   },
                   error:function(objectId,error){
@@ -137,8 +151,8 @@
                   }
               });
           }
-            // 全域變數     
-            var parseupdating="";
+                 
+           
 
             //顯示要編輯的資料
             function Updating1(object){
@@ -221,7 +235,7 @@
                             </button>
                             <ul class=" dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
                                 <!-- <li><a onclick="choosedel()">刪除</a></li> -->
-                                <li><a onclick="del('$_story')" >刪除</a></li>
+                               <li><a onclick="choosedel('$_delbox')">刪除</a></li> 
                                 <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal"  onclick="Updating1('$_storyText')" data-target="#myModal2">編輯</a></li>
                                 
                                 
@@ -231,13 +245,13 @@
                                 
                         
               
-              <!-- <div class="yesno">
+               <div class="yesno">
                 <span class="st-yes-no" id="del" style="display: none;">
                     <span>確定要刪除故事嗎?</span>
-                        <span class="st-yes"><a >是</a></span>
+                        <span class="st-yes"><a onclick="del()">是</a></span>
                         <span class="st-no"><a href="main.html">否</a></span>
                 </span>
-              </div> -->
+              </div> 
 
             <div class="st-photo" id="st-pic">$_storyImage</div>
             <p id="st-tex" class="story-text">$_storyMessage</p>
