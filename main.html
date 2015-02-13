@@ -34,29 +34,7 @@
 	   <!--(4.?)Parse資料庫，儲存照片、文字-->
 		<script type="text/javascript">
             Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt","zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
-           
-             //base64 編碼的字串
-            var base64 = "V29ya2luZyBhdCBQYXJzZSBpcyBncmVhdCE=";
-            var file = new Parse.File("myfile.txt", { base64: base64 });
-            
-            //位元組值的陣列建立檔案
-            var bytes = [ 0xBE, 0xEF, 0xCA, 0xFE ];
-            var file = new Parse.File("myfile.txt", bytes);
-            
-            //點擊處理常式或其他函數中，取得該檔案的參考
-            var fileUploadControl = $("#profilePhotoFileUpload")[0];
-            if (fileUploadControl.files.length > 0) {
-                var file = fileUploadControl.files[0];
-                var name = "photo.jpg";
-                var parseFile = new Parse.File(name, file);
-            }
-            
-            parseFile.save().then(function() {
-                // The file has been saved to Parse.
-            }, function(error) {
-                // The file either could not be read, or could not be saved to Parse.
-            });
-            
+          
             
             function check(){
                 var user = Parse.User.current();
@@ -104,7 +82,7 @@
                   // 顯示故事
                     var profilePhoto = object.get("File");
                     var url = (profilePhoto.url());
-                    alert('url = ' + profilePhoto.url());                          
+                    // alert('url = ' + profilePhoto.url());                          
                     
                     var text = (object.get('Text') +'<br/>'); 
                     var template = $('.template').html();
@@ -114,7 +92,7 @@
                     template = template.replace("$_storyMessage", text);
                         
                     template = template.replace("$_story", object.id);//刪除資料變數
-                        template = template.replace("$_storyText", object.id);
+                    template = template.replace("$_storyText", object.id);
                     $('.frame').append(template);  
                     
                     
@@ -137,7 +115,14 @@
                 }
             });
             }
-          //刪除        
+          //刪除  
+          function choosedel(){
+            // document.getElementById("del").style.display = "block";
+            var styesno = $('.st-yes-no').html();
+            styesno = styesno.replace("none", "block");
+            
+            $('.yesno').append(styesno);  
+          }
           function del(object){
               var Story = Parse.Object.extend("Story");
               var query = new Parse.Query(Story);
@@ -201,35 +186,42 @@
                     <div class="post-story" id="storypost" style="display: none;">
                         
              <!--  刪除確認框 巧瑜 -->
-                        <div class="st-yes-no">
-                            <span>確定要刪除故事嗎?</span>
-                                <span class="st-yes"><a href="#fakelink">是</a></span>
-                                <span class="st-no"><a href="#fakelink">否</a></span>
+                        
+                        
                         <div class="else-user-photo"></div>
                         
                             <span class="user-name">移動薯條
-                                <button type="button"  onclick="del('$_story')">delete</button>
-                                <a class="btn btn-info" onclick="Updating('$_storyText')">更新</a>
+                             
                             </span>
+                            
               
                         
                           
 <!--  編輯ICON   巧瑜1     -->
-                        <div class="dropdown st-deitor">
+                        <div class="st-deitor">
                             <button class="btn dropdown-toggle st-dd" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                                <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                <span class="glyphicon glyphicon-option-horizontal e" aria-hidden="true"></span>
                             </button>
-                            <ul class="st-ddd dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myModal">編輯</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#myModal">刪除</a></li>
+                            <ul class=" dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
+                                
+                                <li><a onclick="Updating('$_storyText')">編輯</a></li>
+                                <li><a onclick="choosedel()">刪除</a></li>
+                                <!-- <li><a onclick="del('$_story')">刪除</a></li> -->
                             </ul>
                         </div>
 <!--  編輯ICON   巧瑜2     --> 
                                 
                         
               
-
+              <div class="yesno">
+                <span class="st-yes-no" id="del" style="display: none;">
+                    <span>確定要刪除故事嗎?</span>
+                        <span class="st-yes"><a >是</a></span>
+                        <span class="st-no"><a href="main.html">否</a></span>
+                </span>
+              </div>
             <div class="st-photo" id="st-pic">$_storyImage</div>
+            
             
             <p id="st-tex" class="story-text">$_storyMessage</p>
             
@@ -277,60 +269,7 @@
 
 			<!-- 新增文章頁面 -->
 
-<!-- 			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			  <div class="modal-dialog">
-			  <div class="modal-content ">
 
-			    <div class="modal-header">
-
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-			    </div>
-
-			    <div class="modal-body">
-
-            <form action="new-story_submit" method="get" accept-charset="utf-8">
-              <p> 
-                <label>選擇圖片</label> 
-                <input type="file" id="profilePhotoFileUpload" /> 
-              </p>  
-              <div id="result"></div>
-              <textarea cols="30" rows="5" placeholder="輸入故事內容..." id="text"></textarea>
-            </form>
-
-			     </div>
-
-			    
-			    
-            <div class="col-xs-3">
-              <a class="btn btn-block btn-lg btn-info" onclick="check()" data-toggle="modal" data-target="#load2">發佈</a>
-            </div>
-
-			    
-			  </div>
-			  </div> -->
-  <!-- loading頁面 -->
-
- <!--      <div class="modal-dialog" id="load2" style="display: none;">
-        <div class="modal-content ">
-
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          </div>
-
-          <div class="modal-body">
-            <div class="progress">
-              <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                <span class="sr-only">100% Complete (danger)</span>
-              </div>
-            </div>
-            <h1 id="upload"></h1>
-          </div>
-        </div>
-
-      </div>     
-
-      </div> -->
 <!-- 新增文章按鈕 -->
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -424,17 +363,3 @@
 
 </html>
 
-<!--宥宥要編輯 新增故事框架
-var file = result.innerHTML; 
-                  var tex = text.value; 
-                  var html = 
-                  "
-                  <div id="storypost" class="main-message" style="display: none;">
-                  <span class="user-name">移動薯條</span>
-                  <div class="user-photo"></div>
-                  
-                  <div id="st-pic">" + file + "</div>
-              
-                  <p class="user-title" id="st-tex">" + tex + "</p>
-          </div>
-          " -->

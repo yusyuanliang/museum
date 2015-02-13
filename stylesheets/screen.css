@@ -344,10 +344,11 @@ label{
 .st-photo{
   /*position: absolute;*/
   /*background-image: url(../img/newpic2.jpg);*/
-  background-size: cover;
+  /*background-size: cover;*/
+  overflow: hidden;
   width: 100%;
   height: 300px;
-  overflow: hidden;
+  
   /*max-width: 100%;*/
 
 }
@@ -564,11 +565,23 @@ div[class*="story-"]{
 /*icon*/
 
 .st-deitor {
-    float:right;
+    position: absolute;
+
+    right: 0;
+}
+.e{
+  width: 30px;
+    height: 20px;
 }
 
-
-
+.e:hover{
+    background-color: #F6EB77;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    
+}
 .st-dd {
     color: #A82F5A;
     background: transparent;
@@ -580,29 +593,27 @@ div[class*="story-"]{
 } 
 
 /*刪除確認框*/
-
-.st-yes-no {
-    position: absolute;
-    z-index: 1;
+.yesno{
+   position: absolute;
     width: 80%;
     height: 25%;
     left: 10%;
     top: 30%;
-    z-index: 1;
     color:#34495e;
     font-size:150%;
     line-height:100px;
     text-align:center;
-    background-color:white;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    box-shadow: 0px 2px 5px #34495e;
+/*    background-color:white;
+    box-shadow: 0px 2px 5px #34495e;*/
 }
 
+
 .st-yes {
-    position: relative;
+
 	min-height: 1px;
 	padding-right: 20px;
 	padding-left:20px;
@@ -626,7 +637,7 @@ div[class*="story-"]{
 }
 
 .st-no {
-    position: relative;
+    /*position: relative;*/
 	min-height: 1px;
 	padding-right: 20px;
 	padding-left:20px;
