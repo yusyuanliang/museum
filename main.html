@@ -138,7 +138,25 @@
               });
           }
                  
-                 //更新
+            //顯示要編輯的資料
+            function u2(object){
+                var Story = Parse.Object.extend("Story");
+                var query = new Parse.Query(Story);
+                query.equalTo("objectId", object);
+                query.first({
+                    success: function(Story) {
+                        var text = Story.get('Text');
+                        document.getElementById("text2").innerHTML=text;
+                    },
+                    error: function(error) {
+                    }
+                });
+            }
+            
+            
+            
+                 
+            //資料確定編輯
             function Updating(object){
                 var Story = Parse.Object.extend("Story");
                 var query = new Parse.Query(Story);
@@ -147,25 +165,24 @@
                     success: function(Story) {
                         Story.save(null, {
                             success: function(Story) {
-
-                                Story.set("Text", "741258963");
+                                Story.set("Text", text2.value);
                                 Story.save({
                                     success: function(Story) {
-                                       window.location.href="main.html";
+                                        window.location.href="main.html";
                                     },
                                     error: function(error) {
                                     }
                                 });
                             },
-                            
-                             error: function(error) {
-                             }
+                            error: function(error) {
+                            }
                         });
                     },
                     error: function(error) {
                     }
                 }); 
-            }  
+            }
+            
         </script>
         
 	</head>
