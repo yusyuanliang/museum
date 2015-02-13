@@ -152,7 +152,7 @@
                     success: function(Story) {
                         var text = Story.get('Text');
                         document.getElementById("text2").innerHTML=text;
-                        parseupdating=Story.get('object');
+                        parseupdating =  Story.id; //Story.get('object');
 },
                     error: function(error) {
                     }
@@ -167,8 +167,8 @@
             function Updating2(object){
                 var Story = Parse.Object.extend("Story");
                 var query = new Parse.Query(Story);
-                var object=parseupdating;
-                //query.equalTo("objectId", object);
+                //var object=parseupdating;
+                query.equalTo("objectId", parseupdating);
                 query.first({
                     success: function(Story) {
                         Story.save(null, {
