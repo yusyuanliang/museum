@@ -53,6 +53,8 @@
                         }, {
                             success: function(Story) {
                                 document.getElementById("upload").innerHTML="故事上傳成功!";
+                                document.getElementById("st-tex").innerHTML= text.value;
+                                document.getElementById("st-pic").innerHTML=  result.innerHTML;
                                 document.getElementById("load1").style.display = "none";
                                 document.getElementById("storypost").style.display = "block";  
                             },
@@ -210,34 +212,33 @@
                             </span>
                             
                           
-<!--  編輯ICON   巧瑜1     -->
+<!--  故事-下拉式選單   巧瑜1     -->
                         <div class="st-deitor">
                             <button class="btn dropdown-toggle st-dd" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
                                 <span class="glyphicon glyphicon-option-horizontal e" aria-hidden="true"></span>
                             </button>
                             <ul class=" dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
-                                
+                                <!-- <li><a onclick="choosedel()">刪除</a></li> -->
+                                <li><a onclick="del('$_story')">刪除</a></li>
                                 <li><a onclick="Updating('$_storyText')">編輯</a></li>
-                                <li><a onclick="choosedel()">刪除</a></li>
-                                <!-- <li><a onclick="del('$_story')">刪除</a></li> -->
+                                
+                                
                             </ul>
                         </div>
-<!--  編輯ICON   巧瑜2     --> 
+<!-- 刪除提示框   巧瑜2     --> 
                                 
                         
               
-              <div class="yesno">
+              <!-- <div class="yesno">
                 <span class="st-yes-no" id="del" style="display: none;">
                     <span>確定要刪除故事嗎?</span>
                         <span class="st-yes"><a >是</a></span>
                         <span class="st-no"><a href="main.html">否</a></span>
                 </span>
-              </div>
+              </div> -->
+
             <div class="st-photo" id="st-pic">$_storyImage</div>
-            
-            
             <p id="st-tex" class="story-text">$_storyMessage</p>
-            
             
             <div class="story-message">
               <div class="story-messager-photo"><h6>張香香</h6></div>                  
