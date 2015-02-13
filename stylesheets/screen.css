@@ -480,14 +480,14 @@ div[class*="story-"]{
 }
 
 .newstory-footer {
-    padding: 20px;
-    text-align: right;
-    border-top: 1px solid #e5e5e5;
-    margin: 35;
-    border: 0;
+   text-align: right;
+    margin: 45px;
     font: inherit;
     font-size: 100%;
-    vertical-align: baseline;
+/*    vertical-align: baseline;*/
+/*    border: 0;*/
+/*    padding: 20px;*/
+/*    border-top: 1px solid #e5e5e5;*/
 }
 
 .bn-po {
