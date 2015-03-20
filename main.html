@@ -67,54 +67,42 @@
             };
             
             //取資料
-            function Project(){
-                var Story = Parse.Object.extend("Story");
-                var query = new Parse.Query(Story);
-                var descending = Story.updatedAt;
-                query.descending("updatedAt");
-                query.notEqualTo("Story", "Text","File");
+            // function Project(){
+            //     var Story = Parse.Object.extend("Story");
+            //     var query = new Parse.Query(Story);
+            //     var descending = Story.updatedAt;
+            //     query.descending("updatedAt");
+            //     query.notEqualTo("Story", "Text","File");
                 
-                query.find({
-                    success: function(results) {
-                    for (var i = 0; i < results.length; i++) {
-                    var object = results[i];
+            //     query.find({
+            //         success: function(results) {
+            //         for (var i = 0; i < results.length; i++) {
+            //         var object = results[i];
 
-                  // 顯示故事
-                    var profilePhoto = object.get("File");
-                    var url = (profilePhoto.url());
-                    // alert('url = ' + profilePhoto.url());                          
+            //       // 顯示故事
+            //         var profilePhoto = object.get("File");
+            //         var url = (profilePhoto.url());
+            //         // alert('url = ' + profilePhoto.url());                          
                     
-                    var text = (object.get('Text') +'<br/>'); 
-                    var template = $('.template').html();
+            //         var text = (object.get('Text') +'<br/>'); 
+            //         var template = $('.template').html();
 
-                    template = template.replace("none", "block");
-                    template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
-                    template = template.replace("$_storyMessage", text);
+            //         template = template.replace("none", "block");
+            //         template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
+            //         template = template.replace("$_storyMessage", text);
                         
-                    template = template.replace("$_delbox", object.id);//刪除框變數
-                    template = template.replace("$_storyText", object.id);//編輯顯示
-                    $('.frame').append(template);  
+            //         template = template.replace("$_delbox", object.id);//刪除框變數
+            //         template = template.replace("$_storyText", object.id);//編輯顯示
+            //         $('.frame').append(template);  
                     
                     
-                     // var img = $("<img>").attr({
-                     //              'src': 'http://l.yimg.com/mq/i/nws/mntl/20100317_FC_WingLee.jpg'
-                     //          });
-                     //          $("body").append(img);
-                     //                  // $('.wrapper').append('<div id="storypost"></div>');
-                                              
-                     //  $(".wrapper").append(object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
-                    
-                     //  $(".wrapper").append(object.id + ' - ' + object.get('Text') +'<br/>'); 
-                     //  $(".wrapper").append(storypost.innerHTML);
-
-                    // var pic = (object.get('File') + '- <img src="' +object.get("File")+ '"width="130px">'  +'<br/>');
-                    }
-                },
-                error: function(error) {
-                alert("Error: " + error.code + " " + error.message);
-                }
-            });
-            }
+            //         }
+            //     },
+            //     error: function(error) {
+            //     alert("Error: " + error.code + " " + error.message);
+            //     }
+            // });
+            // }
             
      var parseupdating="";
             
@@ -201,7 +189,30 @@
                     }
                 }); 
             }
-            
+            // 留言
+            function message(object){
+
+                 var user = Parse.User.current();
+                
+                var Story = new Parse.Object("Story");
+                var a = mtext.value;
+                Story.set("User", user);
+                Story.set("Message",a); 
+
+                
+                Story.save(null, {
+                  success: function(Story) {
+
+                    var aa=document.getElementById("mtext").value;
+                    document.getElementById("mesg").innerHTML=aa;
+                    return objectId;
+                  },
+                  error: function(Story, error) {
+                    
+                    alert('Failed to create new object, with error code: ' + error.description);
+                  }
+                });
+            }
         </script>
         
 	</head>
@@ -277,10 +288,10 @@
                     </li>
                 </ul>   -->
              <div class="user-message">
-               <input type="text" class="input-message">
+              <p id="mesg">留言測試</p>
+               <input type="text" id="mtext"  class="input-message">
                <div class="bn-comments">
-                <a href="#fakelink" class="btn btn-info">留言</a>
-               </div>
+                <a  onclick="message( '$_mes')"  class="btn btn-info">留言</a>
              </div>
 
           </div>
