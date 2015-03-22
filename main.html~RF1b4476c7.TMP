@@ -67,44 +67,42 @@
             };
             
             //取資料
-            function Project(){
-                var Story = Parse.Object.extend("Story");
-                var query = new Parse.Query(Story);
-                var descending = Story.updatedAt;
-                query.descending("updatedAt");
-                query.notEqualTo("Story", "Text","File");
+            // function Project(){
+            //     var Story = Parse.Object.extend("Story");
+            //     var query = new Parse.Query(Story);
+            //     var descending = Story.updatedAt;
+            //     query.descending("updatedAt");
+            //     query.notEqualTo("Story", "Text","File");
                 
-                query.find({
-                    success: function(results) {
-                    for (var i = 0; i < results.length; i++) {
-                    var object = results[i];
+            //     query.find({
+            //         success: function(results) {
+            //         for (var i = 0; i < results.length; i++) {
+            //         var object = results[i];
 
-                  // 顯示故事
-                    var profilePhoto = object.get("File");
-                    var url = (profilePhoto.url());
-                    // alert('url = ' + profilePhoto.url());                          
+            //       // 顯示故事
+            //         var profilePhoto = object.get("File");
+            //         var url = (profilePhoto.url());
+            //         // alert('url = ' + profilePhoto.url());                          
                     
-                    var text = (object.get('Text') +'<br/>'); 
-                    var template = $('.template').html();
+            //         var text = (object.get('Text') +'<br/>'); 
+            //         var template = $('.template').html();
 
-                    template = template.replace("none", "block");
-                    template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
-                    template = template.replace("$_storyMessage", text);
+            //         template = template.replace("none", "block");
+            //         template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
+            //         template = template.replace("$_storyMessage", text);
                         
-                    template = template.replace("$_delbox", object.id);//刪除框變數
-                    template = template.replace("$_storyText", object.id);//編輯顯示
-                    template = template.replace("$_mes", object.id);//留言顯示
-                    template = template.replace("$_mtext", object.id);//留言框顯示
-                    $('.frame').append(template);  
+            //         template = template.replace("$_delbox", object.id);//刪除框變數
+            //         template = template.replace("$_storyText", object.id);//編輯顯示
+            //         $('.frame').append(template);  
                     
                     
-                    }
-                },
-                error: function(error) {
-                alert("Error: " + error.code + " " + error.message);
-                }
-            });
-            }
+            //         }
+            //     },
+            //     error: function(error) {
+            //     alert("Error: " + error.code + " " + error.message);
+            //     }
+            // });
+            // }
             
      var parseupdating="";
             
@@ -193,27 +191,25 @@
             }
             // 留言
             function message(object){
-                var Story = Parse.Object.extend("Story");
-                var query = new Parse.Query(Story);
-                
-                query.equalTo("objectId", object);
-                query.first({
-                    success: function(Story) {
-                        // parseupdating =  Story.id; 
-                        Story.set("Message", oQIsgsqkZu.value);
-                        Story.save({
-                            success: function(Story) {
-                                document.getElementById("mesg").innerHTML = oQIsgsqkZu.value;
 
-                            },
-                            error: function(error) {
-                                
-                            }
-                        });
-                    },
-                    error: function(error) {
-                        
-                    }
+                var user = Parse.User.current();
+                var Story = new Parse.Object("Story");
+                var a = mtext.value;
+                Story.set("User", user);
+                Story.set("Message",a); 
+
+                
+                Story.save(null, {
+                  success: function(Story) {
+
+                    var aa=document.getElementById("mtext").value;
+                    document.getElementById("mesg").innerHTML=aa;
+                    return objectId;
+                  },
+                  error: function(Story, error) {
+                    
+                    alert('Failed to create new object, with error code: ' + error.description);
+                  }
                 });
             }
         </script>
@@ -249,6 +245,7 @@
                                 <span class="glyphicon glyphicon-option-horizontal e" aria-hidden="true"></span>
                             </button>
                             <ul class=" dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
+                                <!-- <li><a onclick="choosedel()">刪除</a></li> -->
                                <li><a onclick="choosedel('$_delbox')">刪除</a></li> 
                                 <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal"  onclick="Updating1('$_storyText')" data-target="#myModal2">編輯</a></li>
                                 
@@ -278,12 +275,22 @@
               <div class="story-messager-photo"><h6>葵花油</h6></div>                  
               <p class="story-messager-text">不要壓抑情緒，記得去大哭一場，下一個會更好...!</p>
              </div>
-             
+             <!--           <div class="main-comment">
+                <ul> 
+                    <li>
+                        <div class="po-photo">
+                            <span class="po-a">第1個留言....</span> 
+                        </div>
+                        <div class="po-photo">
+                            <span class="po-a">第2個留言~~~</span> 
+                        </div>
+                    </li>
+                </ul>   -->
              <div class="user-message">
-                <p id="mesg">留言測試</p>
-                <input  type="text" id="$_mtext" name="mess" class="input-message">
-                <div class="bn-comments">
-                <a  onclick="message( '$_mes')"  name="mess" class="btn btn-info">留言</a>
+              <p id="mesg">留言測試</p>
+               <input type="text" id="mtext"  class="input-message">
+               <div class="bn-comments">
+                <a  onclick="message( '$_mes')"  class="btn btn-info">留言</a>
              </div>
 
           </div>
