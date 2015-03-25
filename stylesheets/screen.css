@@ -669,3 +669,12 @@ div[class*="story-"]{
     border-bottom-right-radius: 10px;
     
 }
+/*留言*/
+.message-bar {
+    position: relative;
+    width: 100%;
+    height: 25px;
+    background-color: #5bc0de;
+    top: 0;
+    text-align:center;
+}
