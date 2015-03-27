@@ -43,9 +43,12 @@
                     var parseFile = new Parse.File(name, file);
                     parseFile.save().then(function() {
                         var Story = new Parse.Object("Story");
+                        var StoryACL = new Parse.ACL(Parse.User.current());//權限
+                        StoryACL.setPublicReadAccess(true);//權限
                         Story.set("User", user);
                         Story.set("File", parseFile);
                         Story.set("Text", text.value);
+                        Story.setACL(StoryACL);//權限
                         Story.save(
                         {
                         }, {
