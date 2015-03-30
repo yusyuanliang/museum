@@ -195,6 +195,7 @@
                 }); 
             }
             // 留言
+           // 留言
             function message(object){
                 var Story = Parse.Object.extend("Story");
                 var query = new Parse.Query(Story);
@@ -203,11 +204,13 @@
                 query.first({
                     success: function(Story) {
                         // parseupdating =  Story.id; 
-                        Story.set("Message", oQIsgsqkZu.value);
+                        var a = document.getElementById(object +"b").value;
+                        Story.set("Comment", a);
+                        Story.set("done", false);
                         Story.save({
                             success: function(Story) {
-                                document.getElementById("mesg").innerHTML = oQIsgsqkZu.value;
-
+                              document.getElementById(object +"b").value = "";
+                                document.getElementById("mesg").innerHTML = a;
                             },
                             error: function(error) {
                                 
@@ -291,7 +294,7 @@
              
              <div class="user-message">
                 <p id="mesg">留言測試</p>
-                <input  type="text" id="$_mtext" name="mess" class="input-message">
+                <input  type="text" id="$_mtextb" name="mess" class="input-message">
                 <div class="bn-comments">
                 <a  onclick="message( '$_mes')"  name="mess" class="btn btn-info">留言</a>
              </div>
