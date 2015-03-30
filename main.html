@@ -71,14 +71,7 @@
             
             //取資料
             function Project(){
-                var Story = Parse.Object.extend("Story");
-                //權限
-                    var publicPost = new Story();
-                    var StoryACL = new Parse.ACL(Parse.User.current());
-                    StoryACL.setPublicReadAccess(true);
-                    publicPost.setACL(StoryACL);
-                    publicPost.save();
-                
+                var Story = Parse.Object.extend("Story");                
                 var query = new Parse.Query(Story);
                 var descending = Story.updatedAt;
                 query.descending("updatedAt");
