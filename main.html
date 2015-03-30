@@ -98,6 +98,7 @@
                     template = template.replace("$_storyText", object.id);//編輯顯示
                     template = template.replace("$_mes", object.id);//留言顯示
                     template = template.replace("$_mtext", object.id);//留言框顯示
+                    template = template.replace("$_showc", object.id);
                     $('.frame').append(template);  
                     
                     
@@ -194,7 +195,7 @@
                     }
                 }); 
             }
-            // 留言
+            
            // 留言
             function message(object){
                 var Story = Parse.Object.extend("Story");
@@ -210,7 +211,7 @@
                         Story.save({
                             success: function(Story) {
                               document.getElementById(object +"b").value = "";
-                                document.getElementById("mesg").innerHTML = a;
+                              document.getElementById(object +"c").innerHTML = a;
                             },
                             error: function(error) {
                                 
@@ -293,7 +294,7 @@
              </div>
              
              <div class="user-message">
-                <p id="mesg">留言測試</p>
+                <p id="$_showcc">留言測試</p>
                 <input  type="text" id="$_mtextb" name="mess" class="input-message">
                 <div class="bn-comments">
                 <a  onclick="message( '$_mes')"  name="mess" class="btn btn-info">留言</a>
