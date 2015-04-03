@@ -1,75 +1,43 @@
 <html>
-  <head>
-	<title>Lovemuseum</title>
-	<meta http-equiv="content-type" content="text/html;charset=utf-8">
-	  <link href="stylesheets/screen.css" media="all" rel="stylesheet">
-	  <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+  	<head>
+		<title>Lovemuseum</title>
+		<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	  	<link href="stylesheets/screen.css" media="all" rel="stylesheet">
+	  	<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
 
 
-	  <!-- Loading Flat UI -->
-	  <link href="dist/css/flat-ui.css" rel="stylesheet">
-	  <link href="docs/assets/css/demo.css" rel="stylesheet">
-	  <link rel="shortcut icon" href="img/favicon.ico">
+	  	<!-- Loading Flat UI -->
+	  	<link href="dist/css/flat-ui.css" rel="stylesheet">
+	  	<link href="docs/assets/css/demo.css" rel="stylesheet">
+	  	<link rel="shortcut icon" href="img/favicon.ico">
 
-	  <!-- Loading Bootstrap -->
-		<!-- Bootstrap - CSS -->
-<!-- 提醒我自己bootstrapt-->
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	  	<!-- Loading Bootstrap -->
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	  
-			<!-- Bootstrap - Javascript(?)-->
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	  <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
-	  <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" /> 
+		<!-- Bootstrap - Javascript(?)-->
+	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	  	<script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+	  	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" /> 
 		
 	  
 	  
-	   <!-- Todo-parse Javascript -->
-	  <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    	
-	  <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+		<!-- Todo-parse Javascript -->
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    	
+		<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
-	   <!--(4.?)Parse資料庫，儲存照片、文字-->
+
+	<!--寫Javascript-->
 		<script type="text/javascript">
 			Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt","zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
-		  
+
+			// 全域變數
+	 		var parseupdating="";
 			
-			function check(){
-				var user = Parse.User.current();
-				var fileUploadControl = $("#profilePhotoFileUpload")[0];
-				if (fileUploadControl.files.length > 0) {
-					var file = fileUploadControl.files[0];
-					var name = "photo.jpg";
-					var parseFile = new Parse.File(name, file);
-					parseFile.save().then(function() {
-						var Story = new Parse.Object("Story");
-						var StoryACL = new Parse.ACL(Parse.User.current());//權限
-						StoryACL.setPublicReadAccess(true);//權限
-						Story.set("User", user);
-						Story.set("File", parseFile);
-						Story.set("Text", text.value);
-						Story.setACL(StoryACL);//權限
-						Story.save(
-						{
-						}, {
-							success: function(Story) {
-								document.getElementById("upload").innerHTML="故事上傳成功!";
-								document.getElementById("st-tex").innerHTML= text.value;
-								document.getElementById("st-pic").innerHTML=  result.innerHTML;
-								document.getElementById("load1").style.display = "none";
-								document.getElementById("storypost").style.display = "block";  
-							},
-							error: function(Story, error) {
-								document.getElementById("upload").innerHTML="故事上傳失敗!";
-							}
-						});
-						
-					}, function(error) {
-					});
-				}
-			};
+
 			
-			//取資料
+	//顯示資料
 			function Project(){
 				var Story = Parse.Object.extend("Story");                
 				var query = new Parse.Query(Story);
@@ -99,56 +67,111 @@
 					template = template.replace("$_mes", object.id);//留言顯示
 					template = template.replace("$_mtext", object.id);//留言框顯示
 					template = template.replace("$_show1", object.id);//留言顯示1
-					$('.frame').append(template);  
+					template = template.replace("$_showcomment", object.id);//Load留言顯示
+					
+					$('.frame').append(template);
+
+					
 					
 					
 					}
-				},
+
+					},
 				error: function(error) {
 				alert("Error: " + error.code + " " + error.message);
 				}
+
 			});
+				
+				Showcomment();
+				return false;
 			}
 			
-	 var parseupdating="";
-			
-		  //刪除  
-		  function choosedel(object){
 
-			  var styesno = $('.st-yes-no').html();
-			  $('.yesno').append(styesno);
-			 var Story = Parse.Object.extend("Story");
-				var query = new Parse.Query(Story);
-				query.equalTo("objectId", object);
-			  query.first({
-					success: function(Story) {
-						parseupdating =  Story.id; 
-					},
-				   error: function(error) {
-					}
-				});
-		  }
-			
-			
-		  function del(object){
-			  var Story = Parse.Object.extend("Story");
-			  var query = new Parse.Query(Story);
-			   query.equalTo("objectId", parseupdating);
-			  query.first({
-				  success: function(Story){
+			function Showcomment(){
+
+				
+				var Story = Parse.Object.extend("Story"); 
+				var Comment = Parse.Object.extend("Comment"); 
+				var query = new Parse.Query(Comment);
+
+				var object = document.getElementById(object +"e");
+
+				var descending = Comment.updatedAt;
+				query.descending("updatedAt");
+				query.notEqualTo("Comment", "content");
+				query.find({
+					
+					success: function(results) {
+						for (var i = 0; i < results.length; i++) {
+						var object = results[i];
+
 					  
-					  Story.destroy();
-					  window.location.href="main.html";   
-				  },
-				  error:function(objectId,error){
-					  alert("Error: " + error.code + " " + error.message);
-				  }
-			  });
-		  }
+						
+						
+						var template = $('.user-message2').html();
+
+						template = template.replace("none", "block");
+						
+						var content = (object.get('content') +'<br/>');
+
+						template = template.replace("$_commentMessage", content);
+						
+
+						
+						$('body').append(template);  
+
+						
+						}
+					},
+					error: function(error) {
+						alert("Error: " + error.code + " " + error.message);
+					}
+					
+					
+				});
+
+			}
+
+			
+	// 新增故事
+			function check(){
+				var user = Parse.User.current();
+				var fileUploadControl = $("#profilePhotoFileUpload")[0];
+				if (fileUploadControl.files.length > 0) {
+					var file = fileUploadControl.files[0];
+					var name = "photo.jpg";
+					var parseFile = new Parse.File(name, file);
+					parseFile.save().then(function() {
+						var Story = new Parse.Object("Story");
+						var StoryACL = new Parse.ACL(Parse.User.current());//權限
+						StoryACL.setPublicReadAccess(true);//權限
+						Story.set("User", user);
+						Story.set("File", parseFile);
+						Story.set("Text", text.value);
+						Story.setACL(StoryACL);//權限
+						Story.save({
+							success: function(Story) {
+								document.getElementById("upload").innerHTML="故事上傳成功!";
+								document.getElementById("st-tex").innerHTML= text.value;
+								document.getElementById("st-pic").innerHTML=  result.innerHTML;
+								document.getElementById("load1").style.display = "none";
+								document.getElementById("storypost").style.display = "block";  
+							},
+							error: function(Story, error) {
+								document.getElementById("upload").innerHTML="故事上傳失敗!";
+							}
+						});
+						
+					});
+				}
+			};
+
 				 
 		   
+	//編輯故事
 
-			//顯示要編輯的資料
+			//顯示編輯的資料
 			function Updating1(object){
 				var Story = Parse.Object.extend("Story");
 				var query = new Parse.Query(Story);
@@ -158,21 +181,17 @@
 						var text = Story.get('Text');
 						document.getElementById("text2").innerHTML=text;
 						parseupdating =  Story.id; //Story.get('object');
-},
+					},
 					error: function(error) {
 					}
 				});
 			}
 			
-			//找尋id
-			
-			
-				 
+			 
 			//資料確定編輯
 			function Updating2(object){
 				var Story = Parse.Object.extend("Story");
 				var query = new Parse.Query(Story);
-				//var object=parseupdating;
 				query.equalTo("objectId", parseupdating);
 				query.first({
 					success: function(Story) {
@@ -195,47 +214,89 @@
 					}
 				}); 
 			}
+
+	//刪除故事
+
+			// 選擇刪除按鈕  
+		  	function choosedel(object){
+				var Story = Parse.Object.extend("Story");
+				var styesno = $('.st-yes-no').html();
+				$('.yesno').append(styesno);
+				 
+				var query = new Parse.Query(Story);
+				query.equalTo("objectId", object);
+				query.first({
+					success: function(Story) {
+						parseupdating =  Story.id; 
+					},
+					error: function(error) {
+					}
+				});
+		  	}
 			
-		   // 留言
+			// 確定刪除
+		  	function del(object){
+			  	var Story = Parse.Object.extend("Story");
+			  	var query = new Parse.Query(Story);
+			   	query.equalTo("objectId", parseupdating);
+			  	query.first({
+				  	success: function(Story){
+					  
+					  	Story.destroy();
+					  	window.location.href="main.html";   
+				  	},
+				  	error:function(objectId,error){
+					  	alert("Error: " + error.code + " " + error.message);
+				  	}
+			  	});
+		  	}
+
+	// 留言故事
 			// function message(object){
-			//     var Story = Parse.Object.extend("Story");
-			//     var query = new Parse.Query(Story);
+			// 	var Story = Parse.Object.extend("Story");
+			// 	var query = new Parse.Query(Story);
 				
-			//     query.equalTo("objectId", object);
-			//     query.first({
-			//         success: function(Story) {
-			//             // parseupdating =  Story.id; 
-			//             var a = document.getElementById(object +"b").value;
-			//             Story.set("Comment", a);
-			//             Story.set("done", false);
-			//             Story.save({
-			//                 success: function(Story) {
-			//                   document.getElementById(object +"b").value = "";
-			//                   document.getElementById(object +"c").innerHTML = a;
-			//                 },
-			//                 error: function(error) {
+			// 	query.equalTo("objectId", object);
+			// 	query.first({
+			// 		success: function(Story) {
+			// 			var a = document.getElementById(object +"b").value;
+			// 			Story.set("Comment", a);
+			// 			Story.set("done", false);
+			// 			Story.save({
+			// 				success: function(Story) {
+			// 				  document.getElementById(object +"b").value = "";
+			// 				  document.getElementById(object +"a").innerHTML = a;
+			// 				},
+			// 				error: function(error) {
 								
-			//                 }
-			//             });
-			//         },
-			//         error: function(error) {
+			// 				}
+			// 			});
+			// 		},
+			// 		error: function(error) {
 						
-			//         }
-			//     });
+			// 		}
+			// 	});
 			// }
 
-			// 留言2
+			// 留言
+			
 			function message(object){
 				var Story = Parse.Object.extend("Story");
 				var Comment = Parse.Object.extend("Comment");
+
+				var user = Parse.User.current();
+				
 				var story = new Story();
 				var comment = new Comment();
 				var a = document.getElementById(object +"b").value;
-	
+				var b = document.getElementById(object +"a").innerHTML;
 				story.set("objectId", object);
 
 				comment.set("content", a);
+
 				comment.set("parent", story);
+				
+				comment.set("User", user);
 				comment.save({
 					success: function(Comment) {
 						
@@ -247,6 +308,8 @@
 					}
 				});
 			}
+
+			
 		</script>
 		
 	</head>
@@ -304,27 +367,30 @@
 			<div class="st-photo" id="st-pic">$_storyImage</div>
 			<p id="st-tex" class="story-text">$_storyMessage</p>
 <!-- 留言  -->
-		  <div class="message-bar">
+		  <!-- <div class="message-bar">
 			 <a>XX先前留言</a>
-		  </div>
+		  </div> -->
 		   
-			<div class="story-message">
+			<!-- <div class="story-message">
 			  <div class="story-messager-photo"><h6>貓兒</h6></div>                  
 			  <p class="story-messager-text">加油加油!!!!!!!!!!</p>
 			 </div>
 			<div class="story-message">
 			  <div class="story-messager-photo"><h6>葵花油</h6></div>                  
 			  <p class="story-messager-text">不要壓抑情緒，記得去大哭一場，下一個會更好...!</p>
-			 </div>
+			 </div> -->
 			 
 			 <div class="user-message">
+			 <div class="user-message2">
+			 	<p id="$_showcommente">$_commentMessage</p>
+			 </div>
 				<p id="$_show1a"></p>
+				
 				<input  type="text" id="$_mtextb" name="mess" class="input-message">
 				<div class="bn-comments">
 				<a  onclick="message( '$_mes')"  name="mess" class="btn btn-info">留言</a>
-			 </div>
-
-		  </div>
+			 	</div>
+		  	</div>
 		</div>
 	  </div>                     
 	  
