@@ -86,7 +86,7 @@
 					template = template.replace("$_mtext", object.id);//留言框顯示
 					template = template.replace("$_show1", object.id);//留言顯示1
 					template = template.replace("$_showcomment", object.id);//Load留言顯示
-					
+					template = template.replace("$_commentMessage", ""); //清除"$_commentMessage"
 					$('.frame').append(template);
 
 					}
