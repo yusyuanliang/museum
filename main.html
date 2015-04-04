@@ -32,13 +32,32 @@
 		<script type="text/javascript">
 			Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt","zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
 
-			// 全域變數
+			// 放全域變數
+
+			// 1.
 	 		var parseupdating="";
-			
+
+			// 2.找到parent.id
+	 		var Story = Parse.Object.extend("Story");
+	 		var story = new Story();
+	 		story.fetch({
+	 		    success: function(storyObject) {
+	 		        var myStory = storyObject.toJSON();
+
+	 		        for (key in myStory.results){
+	 		            var singleStory = new Story();
+	 		            singleStory.id = myStory.results[key].objectId;
+	 		            console.log(singleStory.id);
+	 		            this.showComments(singleStory);
+	 		        }
+	 		    }
+	 		});
+
 
 			
 	//顯示資料
 			function Project(){
+				// 顯示故事
 				var Story = Parse.Object.extend("Story");                
 				var query = new Parse.Query(Story);
 				var descending = Story.updatedAt;
@@ -50,11 +69,10 @@
 					for (var i = 0; i < results.length; i++) {
 					var object = results[i];
 
-				  // 顯示故事
+				  
 					var profilePhoto = object.get("File");
 					var url = (profilePhoto.url());
 					// alert('url = ' + profilePhoto.url());                          
-					
 					var text = (object.get('Text') +'<br/>'); 
 					var template = $('.template').html();
 
@@ -71,67 +89,45 @@
 					
 					$('.frame').append(template);
 
-					
-					
-					
 					}
 
-					},
+				},
 				error: function(error) {
 				alert("Error: " + error.code + " " + error.message);
 				}
 
 			});
-				
-				Showcomment();
-				return false;
 			}
 			
+			// 顯示留言
+	 		function showComments(parent){
+	 		    var Comment = Parse.Object.extend("Comment");
+	 		    var query = new Parse.Query(Comment);
+	 		    query.equalTo("parent", parent);
 
-			function Showcomment(){
+	 		    query.find({
+	 		        success: function(comments) {
+	 		        	// console.log 比對 parent.id
+	 		            for(var key in comments)
+	 		            {
+	 		                console.log("parent.id - " + parent.id);
+	 		                // alert("Comment - " + parent.id);
+	 		            }
+	 		            // 留言迴圈
+	 		            for (var i = 0; i < comments.length; i++) {
+	 		            	var object = comments[i];
+	 		            	var content = (object.get('content') +'<br/>');
+	 		            	var template = $('.user-message2').html();
+	 		            	var showcontents = template = template.replace("$_commentMessage", content);
+	 		            	
+	 		            	$('#'+ parent.id +'e').prepend(showcontents);
 
-				
-				var Story = Parse.Object.extend("Story"); 
-				var Comment = Parse.Object.extend("Comment"); 
-				var query = new Parse.Query(Comment);
+	 		        	}
 
-				var object = document.getElementById(object +"e");
 
-				var descending = Comment.updatedAt;
-				query.descending("updatedAt");
-				query.notEqualTo("Comment", "content");
-				query.find({
-					
-					success: function(results) {
-						for (var i = 0; i < results.length; i++) {
-						var object = results[i];
-
-					  
-						
-						
-						var template = $('.user-message2').html();
-
-						template = template.replace("none", "block");
-						
-						var content = (object.get('content') +'<br/>');
-
-						template = template.replace("$_commentMessage", content);
-						
-
-						
-						$('body').append(template);  
-
-						
-						}
-					},
-					error: function(error) {
-						alert("Error: " + error.code + " " + error.message);
-					}
-					
-					
-				});
-
-			}
+	 		        }
+	 		    });
+	 		}
 
 			
 	// 新增故事
