@@ -103,7 +103,7 @@
 	 		function showComments(parent){
 	 		    var Comment = Parse.Object.extend("Comment");
 	 		    var query = new Parse.Query(Comment);
-	 		    query.equalTo("parent", parent);
+	 		    query.equalTo("parent", parent,"objectId");
 
 	 		    query.find({
 	 		        success: function(comments) {
@@ -116,12 +116,16 @@
 	 		            // 留言迴圈
 	 		            for (var i = 0; i < comments.length; i++) {
 	 		            	var object = comments[i];
-	 		            	var content = (object.get('content') +'<br/>');
-	 		            	var template = $('.user-message2').html();
+	 		            	
+	 		            	var template = $('.story-message').html();
+	 		            	template = template.replace("none", "block");
+	 		            	var content = (object.get("content") +'<br/>');
+	 		            	template = template.replace("$_showcomment2", object.id);
 	 		            	var showcontents = template = template.replace("$_commentMessage", content);
+
 	 		            	
 	 		            	$('#'+ parent.id +'e').prepend(showcontents);
-
+	 		            	// $('#'+ parent.id +'e').append(showcontents);
 	 		        	}
 
 
@@ -153,6 +157,7 @@
 								document.getElementById("st-pic").innerHTML=  result.innerHTML;
 								document.getElementById("load1").style.display = "none";
 								document.getElementById("storypost").style.display = "block";  
+								document.getElementById("$_showcommente").innerHTML= "  "; 
 							},
 							error: function(Story, error) {
 								document.getElementById("upload").innerHTML="故事上傳失敗!";
@@ -376,15 +381,18 @@
 			  <p class="story-messager-text">不要壓抑情緒，記得去大哭一場，下一個會更好...!</p>
 			 </div> -->
 			 
-			 <div class="user-message">
-			 <div class="user-message2">
-			 	<p id="$_showcommente">$_commentMessage</p>
-			 </div>
-				<p id="$_show1a"></p>
+			 <div class="user-message" >
+			 	<div class="user-message2" >
+					<div class="story-message"  id="$_showcommente" >
+						<div class="story-messager-photo" style="display: none;"><h6>貓兒</h6></div>
+						<div class="story-messager-text" ><p  class="$_showcomment2e" >$_commentMessage</p></div>
+						<p id="$_show1a"></p>
+					</div>
+				</div>
 				
 				<input  type="text" id="$_mtextb" name="mess" class="input-message">
 				<div class="bn-comments">
-				<a  onclick="message( '$_mes')"  name="mess" class="btn btn-info">留言</a>
+					<a  onclick="message( '$_mes')"  name="mess" class="btn btn-info">留言</a>
 			 	</div>
 		  	</div>
 		</div>
