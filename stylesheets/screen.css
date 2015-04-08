@@ -678,3 +678,38 @@ div[class*="story-"]{
     top: 0;
     text-align:center;
 }
+
+/* 好友 */
+.top-friends {
+    position: relative;
+    width: 5%;
+    height: 55px;
+    background-color:#F45D93;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+
+
+.bn-reiends {
+    position: relative;
+    background-color: #F45D93;
+    border-color: #E8FFE5;
+    font-size: 25px;
+    padding: 30%;
+}
+
+/*搜尋好友*/
+.top-search {
+    max-width:20%;
+    position: relative;
+    display: table;
+/*    border-collapse: separate;*/
+    float:left;
+    margin-left:5%;
+    margin-top:0%;
+    z-index: 1;
+    width: 40%;
+    padding-top: 0%;
+}
