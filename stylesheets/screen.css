@@ -695,9 +695,10 @@ div[class*="story-"]{
 .bn-reiends {
     position: relative;
     background-color: #F45D93;
-    border-color: #E8FFE5;
+    border-color: #F45D93;
+    color: #E8FFE5;
     font-size: 25px;
-    padding: 30%;
+    padding: 18%;
 }
 
 /*搜尋好友*/
