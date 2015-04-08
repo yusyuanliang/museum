@@ -319,7 +319,20 @@
 					}
 				});
 			}
-
+//搜尋
+            function search(){  
+                var username = search.value;
+                 Parse.User(username, { 
+                    success: function(user) {
+                      alert("正確");    	
+                    },
+                    error: function(user, error) {  
+                        alert("查無此人");
+                        search.value="";
+                    }
+                });
+            }
+                
 			
 		</script>
 		
@@ -344,7 +357,10 @@
           </div>
       <!--  搜尋好友  -->
             <div class="top-search" >
-                <input type="text"  class="form-control" placeholder="Search">
+                <form class="navbar-form navbar-left" role="search" >
+                <input type="text"  class="form-control" placeholder="Search" id="search">
+                <button type="submit"  onclick="search()">搜尋</button>
+                </form>
             </div>
            
 
