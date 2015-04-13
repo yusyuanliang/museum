@@ -62,6 +62,40 @@
                 document.getElementById("email-auth-no").innerHTML="";
                 document.getElementById("pw").innerHTML="";
             }
+            // 帳號即時檢查
+            function timelyEmail(inputField,helpText){
+            var User = Parse.Object.extend("User");
+            var query = new Parse.Query(User);
+            
+            query.notEqualTo("User", "username");
+            query.find({
+                success: function(results) {
+                
+                    for (var i = 0; i < results.length; i++) {
+                       
+                        var object = results[i];
+                        // alert(object.id + ' - ' + object.get('username'));
+                        var username =  object.get('username');
+                        if (object) {
+                            if(inputField.value == username){
+                               (helpText !=null)
+                                helpText.innerHTML = "已有人使用此帳號!";
+                                return false;
+                            }
+                        
+                        }
+                    
+                    }
+                    
+                
+                    document.getElementById("email_help").innerHTML="";
+                },
+              error: function(error) {
+                alert("Error: " + error.code + " " + error.message);
+              }
+
+            });
+            }
         </script>
     </head>
     
@@ -71,7 +105,8 @@
                 <div class="signmember">
                     <h1>註冊會員</h1>
                     <form class="forma">
-                        <h6><label>Email</label><input type="text" name="fname" id="e1"/></h6>
+                        <h6><label>Email</label><input type="text" name="fname" id="e1" onblur="timelyEmail(this,document.getElementById('email_help'));" /></h6>
+                        <span id="email_help" class="help"></span>
                         <h6><label>密　碼</label><input type="password" name="lname" id="p1" placeholder="" onclick="email()"/></h6>
                         <h6><label>確認密碼</label><input type="password" name="lname" id="p2" placeholder="" onclick="email()"/></h6>
                     </form>
