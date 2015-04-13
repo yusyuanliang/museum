@@ -91,8 +91,11 @@
 					
 					template = template.replace("$_checkPC2", object.id); //顯示/隱藏先前留言
 					template = template.replace("$_showcomment", object.id);//Load留言顯示
+					template = template.replace("$_showcomment2", object.id);//Load留言顯示
 					template = template.replace("$_user-message", object.id); //留言模板
+					template = template.replace("$_user-message3", object.id);//留言模板2
 					template = template.replace("$_commentText", ""); //清除"$_commentText"
+					template = template.replace("$_commentText3", "");
 					$('.frame').append(template);
 
 					}
@@ -124,20 +127,29 @@
 	 		            // 留言迴圈
 	 		            for (var i = 0; i < comments.length; i++) {
 	 		            	var object = comments[i];
-	 		            	
-	 		            	var template = $('.story-message').html();
-	 		            	template = template.replace("none", "block");
 	 		            	var content = (object.get("content") +'<br/>');
-	 		            	var showcontents = template = template.replace("$_commentText", content);
 
-	 		            	
-	 		            	$('#'+ parent.id +'_ccc').prepend(showcontents);
-	 		            	// $('#'+ parent.id +'e').append(showcontents);
-	 		            	if(i+1){
-	 		            		document.getElementById(parent.id + "_cccc").innerHTML= i + 1 +"則留言";
-
-	 		            	
+	 		            	if (i<=2) {
+	 		            		
+	 		            		// 3筆
+	 		            		var a = $('.story-message3').html();
+	 		            		a = a.replace("none", "block");	
+	 		            		var showcontents3 = a = a.replace("$_commentText3", content);
+	 		            		$('#'+ parent.id +'_cccc').prepend(showcontents3); 
 	 		            	}
+
+	 		            	else if(i>=2){
+
+	 		            		// 多筆
+	 		            		var b = $('.story-messages').html();
+	 		            		b = b.replace("none", "block");
+	 		            		var showcontents = b = b.replace("$_commentText", content);
+	 		            		$('#'+ parent.id +'_ccc').prepend(showcontents);
+	 		            		document.getElementById(parent.id + "_ccccc").innerHTML=  i - 2 +"則先前留言";
+	 		            		
+	 		            	}
+	 		         
+	 		            	
 	 		            	
 	 		        	}
 
@@ -152,13 +164,8 @@
 	 		function a(object){
 
  				$("."+ object +"2").toggle("fast");
- 				// var b = ["1","2","3"];
- 				// for (var i = 0; i < a.length; i++) {
- 				// 	var c = b[i];
- 				// 	alert(第 + b);
-
- 					
- 				// 	}
+ 				document.getElementById(object + "_ccccc").innerHTML=  "隱藏留言";
+ 				// document.getElementById("aa2").style.display = "block";
  				
 			}
 
@@ -407,16 +414,29 @@
 <!-- 留言  -->
 
 		  	<div class="message-bar" >
-				<a id="$_preComment_cccc" onclick="a('$_checkPC2');" style="cursor:pointer" >沒有留言</a>
+		  		<span class="fui-triangle-down-small"></span>
+				<!-- <span class="fui-triangle-up-small"  ></span> -->
+				<a id="$_preComment_ccccc" onclick="a('$_checkPC2');" style="cursor:pointer" >沒有隱藏留言</a>
+
 		  	</div>
 		   
 			 
 			<div class="user-message" >
-			 	<div class="$_user-message2" >
-			 		
-					<div class="story-message"  id="$_showcomment_ccc" >
-						<div class="story-messager-photo" style="display: none;"><h6>貓兒</h6></div>
+			 	<div class="$_user-message2"  style="display: none;">
+					<div class="story-messages"  id="$_showcomment_ccc" >
+						<div class="story-messager-photo"style="display: none;"><h6>貓兒</h6></div>
+						<!-- 多筆 -->
 						<div class="story-messager-text" ><p>$_commentText</p></div>
+
+					</div>
+					
+				</div>
+				<div class="$_user-message2" >
+			 		
+					<div class="story-message3"  id="$_showcomment2_cccc">
+						<div class="story-messager-photo" style="display: none;"><h6>俠盜</h6></div>
+						<!-- 3筆 -->
+						<div class="story-messager-text" ><p>$_commentText3</p></div>
 						<p id="$_inshowCommendText_cc"></p>
 					</div>
 					
@@ -424,7 +444,7 @@
 				
 				<input  type="text" id="$_inputCommendText_c" name="mess" class="input-message">
 				<div class="bn-comments">
-					<a  onclick="message( '$_checkC1')"  name="mess" class="btn btn-info">留言</a>
+					<a onclick="message('$_checkC1')"  name="mess" class="btn btn-info">留言</a>
 			 	</div>
 		  	</div>
 		</div>
