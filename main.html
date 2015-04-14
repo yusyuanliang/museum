@@ -313,23 +313,42 @@
 					  	document.getElementById(object +"_c").value = "";
 					  	$('#'+ object +'_cc').prepend(a + "<br>");
 					  	
-					},
-					error: function(error) {
-					}
-				});
-			}
-			//搜尋
-            function search(){  
-                var username = search.value;
-                 Parse.User(username, { 
-                    success: function(user) {
-                      alert("正確");    	
                     },
-                    error: function(user, error) {  
-                        alert("查無此人");
-                        search.value="";
+                    error: function(error) {
                     }
                 });
+            }
+			//搜尋
+            function search(input){ 
+                //document.getElementById("display").innerHTML = input.value;
+                var User = Parse.Object.extend("User");
+                var query = new Parse.Query(User);
+                query.notEqualTo("User", "username");
+                query.find({
+                    success: function(results) {
+//                        alert("Successfully retrieved " + results.length + " username.");
+//                        alert(object.id + ' - ' + object.get('username'));
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+                            if (object) {
+                               var username = object.get('username');
+                                if(input.value == username){
+                                   
+                                   document.getElementById("display").innerHTML = input.value;
+                                    return false;
+                                }
+                        
+                            }
+                            
+                           
+                        }
+                         document.getElementById("display").innerHTML="";
+                    },
+                    error: function(error) {
+                        alert("Error: " + error.code + " " + error.message);
+                    }
+                });
+                
             }
 			
 		</script>
@@ -343,6 +362,7 @@
 		<a class="aa" href="#" >張薯條</a>
 		  <div id="user-info">     
 		<a href="index.html" class="log-out" cheak="logout()">登出</a>
+               <p id="display"></p>
 	  </div>
 		<div class="top-img">
 			
@@ -361,7 +381,8 @@
                    <form class="navbar-form navbar-right" action="#" role="search">
                    <div class="form-group">
                        <div class="input-group">
-                           <input class="form-control" id="navbarInput-01" type="search" placeholder="Search">
+                           <input class="form-control"  type="search" placeholder="Search" onkeyUp="search(this)">
+                          
                            <span class="input-group-btn">
                                <button type="submit" class="btn"><span class="fui-search"></span></button>
                            </span>
