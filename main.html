@@ -350,6 +350,35 @@
                 });
                 
             }
+            
+            //加好友
+            function friend(){ 
+                var curUser = Parse.User.current();
+                var userQuery = new Parse.Query(Parse.User);
+                userQuery.equalTo("objectId", "sFbwaiD518"); //xj3QLLYy07
+
+                //find the user you want to add
+                userQuery.first().then
+                (
+                    function(userToAdd)
+                    {
+                        var relation = curUser.relation("amici");
+
+                        //add user to relation
+                        relation.add(userToAdd);
+                        curUser.save();
+                    },
+                    function(error)
+                    {
+                        console.log("error: " + error.message);
+                    }
+                );
+            
+           } 
+            
+            
+            
+            
 			
 		</script>
 		
@@ -364,6 +393,9 @@
 		<a href="index.html" class="log-out" cheak="logout()">登出</a>
                <p id="display"></p>
 	  </div>
+           <button class="btn btn-embossed btn-primary" onclick="friend()" >    
+              加好友
+          </button>
 		<div class="top-img">
 			
 		</div>
