@@ -303,7 +303,8 @@ label{
     display: inline-block;
     background-color: #FFF;
     width: 30%;
-    height: 570px;
+    height:auto !important;
+/*    height: 570px;*/
     left: 30%;
     top: 60px;
     -webkit-border-radius: 10px;
@@ -391,6 +392,7 @@ label{
 }
 .user-message{
   bottom: 0;
+  
 }
 .input-message{
   width: 77%;
