@@ -715,3 +715,14 @@ div[class*="story-"]{
     width: 40%;
     padding-top: 0%;
 }
+
+/*搜尋好友列表*/
+.friend-list-group {
+     padding-left: 0;
+     margin-bottom: 20px;
+/*
+    background-color: #F45D93;
+    border-color: #F45D93;
+    color: #E8FFE5;
+*/
+}

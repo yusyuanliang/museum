@@ -391,6 +391,7 @@
 		<a class="aa" href="#" >張薯條</a>
 		  <div id="user-info">     
 		<a href="index.html" class="log-out" cheak="logout()">登出</a>
+              子ㄅˇ
                <p id="display"></p>
 	  </div>
            <button class="btn btn-embossed btn-primary" onclick="friend()" >    
@@ -409,17 +410,23 @@
 <!--              <a class="bn-reiends" href="#fakelink"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>-->
           </div>
       <!--  搜尋好友  -->
-               <div class="top-search" >
-                   <form class="navbar-form navbar-right" action="#" role="search">
-                   <div class="form-group">
-                       <div class="input-group">
-                           <input class="form-control"  type="search" placeholder="Search" onkeyUp="search(this)">
-                          
-                           <span class="input-group-btn">
-                               <button type="submit" class="btn"><span class="fui-search"></span></button>
-                           </span>
-                       </div>
-                   </div>
+            <div class="top-search" >
+                  <form class="navbar-form navbar-right" action="#" role="search">
+                      <div class="form-group">
+                          <div class="input-group">
+                              <input class="form-control"  type="search" placeholder="Search" onkeyUp="search(this)">
+                                  <span class="input-group-btn">
+                                  <button type="submit" class="btn"><span class="fui-search"></span></button></span>
+                          </div>
+                          <div>
+                              <ul class="friend-list-group" style="display: none;">
+                                  <a href="#" class="list-group-item">friends1</a>
+                                  <a href="#" class="list-group-item">friends2</a>
+                                  <a href="#" class="list-group-item">friends3</a>
+                                  <a href="#" class="list-group-item">friends4</a>
+                              </ul>
+                          </div>
+                      </div>
                    </form>
                </div>           
 
@@ -481,7 +488,7 @@
 						<!-- 多筆 -->
 						<div class="story-messager-text" ><p>$_commentText</p></div>
 
-					</div>
+					</div></div>
 					
 				</div>
 				<div class="$_user-message2" >
