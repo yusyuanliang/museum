@@ -336,7 +336,9 @@
                                 if(input.value == username){
                                    
                                    document.getElementById("display").innerHTML = input.value;
+                                    parseupdating=object.id;
                                     return false;
+                                    
                                 }
                         
                             }
@@ -356,14 +358,13 @@
             function friend(){ 
                 var curUser = Parse.User.current();
                 var userQuery = new Parse.Query(Parse.User);
-                userQuery.equalTo("objectId", "sFbwaiD518"); //xj3QLLYy07
-
-                //find the user you want to add
+                userQuery.equalTo("objectId", parseupdating); 
+            
                 userQuery.first().then
                 (
                     function(userToAdd)
                     {
-                        var relation = curUser.relation("amici");
+                        var relation = curUser.relation("friend");
 
                         //add user to relation
                         relation.add(userToAdd);
