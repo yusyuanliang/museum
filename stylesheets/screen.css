@@ -710,10 +710,12 @@ div[class*="story-"]{
     display: table;
 /*    border-collapse: separate;*/
     float:left;
-    margin-left:5%;
-    z-index: 1;
+    margin-left:100%;
+    margin-top: 0%;
+    z-index: -1;
     width: 40%;
     padding-top: 0%;
+    margin-top: 0px;
 }
 
 /*搜尋好友列表*/

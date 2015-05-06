@@ -4843,7 +4843,7 @@ fieldset[disabled] .navbar-inverse .navbar-btn.active {
   line-height: 76px;
   }
 .navbar-lg .navbar-form {
-  padding-top: 20.5px;
+  padding-top: 0px;
   padding-bottom: 20.5px;
   }
 .navbar-lg .navbar-text {
