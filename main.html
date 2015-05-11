@@ -7,26 +7,29 @@
 	  	<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
 	
 	
-	  	<!-- Loading Flat UI -->
+	  	<!-- Loading CSS -->
 	  	<link href="dist/css/flat-ui.css" rel="stylesheet">
 	  	<link href="docs/assets/css/demo.css" rel="stylesheet">
 	  	<link rel="shortcut icon" href="img/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/Jcrop/jquery.Jcrop.css" />
+		
+		<!-- Loading Javascript -->
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    
+		<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
 
-	  	<!-- Loading Bootstrap -->
+	  		<!-- Loading Bootstrap -->
 	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	  
-		<!-- Bootstrap - Javascript(?)-->
+			<!-- Bootstrap - Javascript(?)-->
 	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	  	<script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
 	  	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" /> 
 		
 	  
 	  
-		<!-- Todo-parse Javascript -->
-		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    	
-		<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+		
 
 
 	<!--寫Javascript-->
@@ -625,31 +628,59 @@
 
 
 		
-		<!-- 上傳圖片顯示 -->
-	<script type="text/javascript">
-	  var result = document.getElementById("result"); 
-	  var input = document.getElementById("profilePhotoFileUpload"); 
-	  if(typeof FileReader==='undefined'){ 
-		 
-		  input.setAttribute('disabled','disabled'); 
-	  }else{ 
-		  input.addEventListener('change',readFile,false); 
-	  } 
-	  function readFile(){ 
-		  var file = this.files[0]; 
-		  if(!/image\/\w+/.test(file.type)){ 
-			  alert("檔案錯了喔><"); 
-			  return false; 
-		  } 
-		  var reader = new FileReader(); 
-		  reader.readAsDataURL(file); 
+<!-- 上傳圖片顯示 -->
+	        <script type="text/javascript">
+	          var result = document.getElementById("result"); 
+	          var input = document.getElementById("profilePhotoFileUpload"); 
+	          if(typeof FileReader==='undefined'){ 
+	             
+	              input.setAttribute('disabled','disabled'); 
+	          }else{ 
+	              input.addEventListener('change',readFile,false); 
+	          } 
+	          function readFile(){ 
+	              var file = this.files[0]; 
+	              if(!/image\/\w+/.test(file.type)){ 
+	                  alert("檔案錯了喔><"); 
+	                  return false; 
+	              } 
+	              var reader = new FileReader(); 
+	              reader.readAsDataURL(file); 
 
-		  reader.onload = function(e){ 
-			  result.innerHTML = '<img src="'+this.result+'" alt=""/>' 
-		  } 
+	              reader.onload = function(e){ 
+	                // 圖片顯示頁面
+	                  result.innerHTML = '<img src="'+this.result+'" ' +' id="jcrop_target"/>'
 
-	  } 
-	</script>
+	                  // 固定寬高剪裁圖片
+	                  $('#jcrop_target').Jcrop({
+	                      onChange:showPreview,
+	                      onSelect:showPreview,
+	                      aspectRatio:1
+	                  }); 
+	                  
+	                  function showPreview(coords){
+	                      if(parseInt(coords.w) > 0){
+	                          
+	                          var rx = $("#preview_box").width() / coords.w; 
+	                          var ry = $("#preview_box").height() / coords.h;
+	                          
+	                          $("#crop_preview").css({
+	                              width:Math.round(rx * $("#jcrop_target").width()) + "px", 
+	                              height:Math.round(rx * $("#jcrop_target").height()) + "px",  
+	                              marginLeft:"-" + Math.round(rx * coords.x) + "px",
+	                              marginTop:"-" + Math.round(ry * coords.y) + "px"
+	                          });
+	                      }
+	                  } 
+	              }
+
+
+
+	          } 
+	        </script>
+
+	        <script type="text/javascript" src="js/Jcrop/jquery.min.js"></script>  
+	        <script type="text/javascript" src="js/Jcrop/jquery.Jcrop.min.js"></script>
 	 
 				  
    
