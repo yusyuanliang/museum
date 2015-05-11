@@ -212,17 +212,17 @@
 				  //設定大頭照
             function userphoto(){
 				var user = Parse.User.current();
-				var fileUpuploaduserphoto = $("#userphoto")[0];
-				if (fileUpuploaduserphoto.files.length > 0) {
-					var file = fileUpuploaduserphoto.files[0];
+				var filephoto = $("#userphoto")[0];
+				if (filephoto.files.length > 0) {
+					var file = filephoto.files[0];
 					var name = "userphoto.jpg";
 					var parseFile = new Parse.File(name, file);
 					parseFile.save().then(function() {
-						var User = new Parse.Object("User");
+						var User = Parse.User.current();
 						//var StoryACL = new Parse.ACL(Parse.User.current());//權限
 				        //StoryACL.setPublicReadAccess(true);//權限
-						User.set("User", user);
-						User.set("File", parseFile);
+                        //User.set("User", user);
+                        User.set("File", parseFile);
 						//Story.set("Text", text.value);
 						//User.setACL(StoryACL);//權限
 						User.save({
