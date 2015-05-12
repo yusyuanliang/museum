@@ -50,7 +50,8 @@
                 
                 Parse.User.signUp(username, password, null, {  //去撈資料庫的資料核對是否有重複
                     success: function(user) {
-                        window.location.href="main.html";   
+                        window.location.href="main.html"; 
+//                        document.getElementById("myModal").style.display = "block";  
                     },
 
                     error: function(user, error) {  //有重複顯示錯誤
@@ -100,12 +101,47 @@
 
             });
             }
+            
+				  //設定大頭照
+            function userphoto(){
+				var user = Parse.User.current();
+				var filephoto = $("#userphoto")[0];
+				if (filephoto.files.length > 0) {
+					var file = filephoto.files[0];
+					var name = "userphoto.jpg";
+					var parseFile = new Parse.File(name, file);
+					parseFile.save().then(function() {
+						var User = Parse.User.current();
+						//var StoryACL = new Parse.ACL(Parse.User.current());//權限
+				        //StoryACL.setPublicReadAccess(true);//權限
+                        //User.set("User", user);
+                        User.set("File", parseFile);
+						//Story.set("Text", text.value);
+						//User.setACL(StoryACL);//權限
+						User.save({
+							success: function(User) {
+								document.getElementById("upload").innerHTML="照片上傳成功!";
+//								document.getElementById("st-tex").innerHTML= text.value;
+//								document.getElementById("st-pic").innerHTML=  result.innerHTML;
+//								document.getElementById("load1").style.display = "none";
+//								document.getElementById("mugshot").style.display = "none";
+//  							document.getElementById("storypost").style.display = "block";  
+//								document.getElementById("$_showcommente").innerHTML= "  "; 
+							},
+							error: function(User, error) {
+								document.getElementById("upload").innerHTML="照片上傳失敗!";
+							}
+						});
+						
+					});
+				}
+			};	 			
         </script>
     </head>
     
     <body >
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >
           註冊
         </button>
 
@@ -121,14 +157,14 @@
                 <form action="new-story_submit" method="get" accept-charset="utf-8">
                             <p>
                                 <!-- <label>選擇圖片</label>  -->
-                                <input type="file" id="profilePhotoFileUpload" /> 
+                                <input type="file" id="userphoto" /> 
                             </p>
                             <div id="result"></div>
                                 
                         </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary">設成大頭照</button>
+                <button type="button" class="btn btn-primary" onclick="userphoto()">設成大頭照</button>
               </div>
             </div>
           </div>
