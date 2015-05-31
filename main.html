@@ -2,39 +2,32 @@
   	<head>
 		<title>Lovemuseum</title>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8">
-		<script type="text/javascript" src="js/main.js"></script>
 	  	<link href="stylesheets/screen.css" media="all" rel="stylesheet">
 	  	<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
-	
-	
+
+		
+
 	  	<!-- Loading CSS -->
 	  	<link href="dist/css/flat-ui.css" rel="stylesheet">
 	  	<link href="docs/assets/css/demo.css" rel="stylesheet">
 	  	<link rel="shortcut icon" href="img/favicon.ico">
-		<link rel="stylesheet" type="text/css" href="css/Jcrop/jquery.Jcrop.css" />
+		<!-- <link rel="stylesheet" type="text/css" href="css/Jcrop/jquery.Jcrop.css" /> -->
 		
 		<!-- Loading Javascript -->
 		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    
-		<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+		
 
-	  		<!-- Loading Bootstrap -->
+	  	<!-- Loading Bootstrap -->
 	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-	  
-			<!-- Bootstrap - Javascript(?)-->
 	  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 	  	<script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
-	  	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" /> 
-		
-	  
-	  
-		
-
-
-	<!--寫Javascript-->
-		<script type="text/javascript">
-			Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt","zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
+	  	<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+		<script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+	  	 <script type="text/javascript">
+	  	 				Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt","zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
 
 			// 放全域變數
 
@@ -62,9 +55,7 @@
 	//顯示資料
 			function Project(){
 				// 顯示故事
-                var top = document.getElementById("top-img");
-                top.innerHTML = '<img src='"img/newpic.jpg"'>';
-                document.getElementById("top").innerHTML="<img src='" + url + "'>";
+                
 				var Story = Parse.Object.extend("Story");                
 				var query = new Parse.Query(Story);
 				var descending = Story.updatedAt;
@@ -113,7 +104,33 @@
 				}
 
 			});
+				
+			}
+			
 
+			function s(){
+
+				var User = Parse.Object.extend("User");                
+				var query = new Parse.Query(User);
+				query.equalTo("User","File");
+				
+				
+
+					query.first({
+						success: function() {
+							var usernamefile = object.get("File");
+							var url = (usernamefile.url());
+							var topimg = document.getElementById("topimg");
+							
+							topimg.innerHTML = "<img src='" + url + "'>";
+							alert('url = ' + usernamefile.url());   
+
+					},
+					error: function(error) {
+					alert("Error: " + error.code + " " + error.message);
+					}
+
+				});
 			}
 			
 			// 顯示留言
@@ -421,59 +438,36 @@
             
             
 
-			
-		</script>
+	  	 </script>
+		
+		
 		
 	</head>
-	<body onload="Project()">
-		<div class="wrapper" id="main"> 
+	<body onload="Project();s();" >
+	<div class="wrapper" id="main"> 
 	  <!--  主畫面  -->
 	  <nav class="top-bar">
+
 		<p class="main-logo">LoveMuseum</p>
 		<a class="aa" href="#" >張薯條</a>
-		  <div id="user-info">     
-		<a href="index.html" class="log-out" cheak="logout()">登出</a>
+		  	<div id="user-info">     
+		<!-- <a href="index.html" class="log-out" cheak="logout()">登出</a> -->
                <p id="display"></p>
-	  </div>
+	  		</div>
            <button class="btn btn-embossed btn-primary" onclick="friend()" >    
               加好友
           </button>
+
           <!-- 更換大頭照 -->
-		<div class="top-img" data-toggle="modal" data-target="#mugshot" style="cursor:pointer"><img scr="$_a" id="top-img"></div>
-		<!-- Modal -->
-		<div class="modal fade" id="mugshot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-		  <div class="modal-dialog">
-			<div class="modal-content">
-			  <!-- <div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-			  </div> -->
-			  <div class="modal-body">
-				<form action="new-story_submit" method="get" accept-charset="utf-8">
-					<p>
-						<!-- <label>選擇圖片</label>  -->
-						<input type="file" id="userphoto" /> 
-					</p>
-					<div id="result"></div>
-								
-				</form>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-primary" onclick="userphoto()">設成大頭照</button>
-			  </div>
-			</div>
-		  </div>
-		</div>
+		<div class="top-img" data-toggle="modal" data-target="#mugshot" style="cursor:pointer" id="topimg"></div>
+		
 	  </nav>  
 	  
 	  <!-- 好友按鈕 -->
-          <div class="top-friends">
-             <button class="bn-reiends" class="btn btn-primary" type="button">
-             <span  class="glyphicon glyphicon-user"><span class="badge">5</span></span></button>
-              
-<!--              <a class="bn-reiends" href="#fakelink"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>-->
-        
-         <!--  搜尋好友  -->
+        <div class="top-friends">
+            <button class="bn-reiends" class="btn btn-primary" type="button">
+            <span  class="glyphicon glyphicon-user"><span class="badge">5</span></span></button>
+              <!--  搜尋好友  -->
             <div class="top-search" >
                   <form class="navbar-form navbar-right" action="#" role="search">
                       <div class="form-group">
@@ -493,8 +487,8 @@
                       </div>
                    </form>
                </div>        
-             </div>
-         
+        </div>
+        
 		 <!-- 故事框 -->
 			<div class="frame">
 				<div class="template">
@@ -558,7 +552,7 @@
 					<div class="story-message3"  id="$_showcomment2_cccc">
 						<div class="story-messager-photo" style="display: none;"><h6>俠盜</h6></div>
 						<!-- 3筆 -->
-						<div class="story-messager-text" ><p>$_commentText3</p></div>
+						<div class="story-messager-text" id="commentText3"><p>$_commentText3</p></div>
 						<p id="$_inshowCommendText_cc"></p>
 					</div>
 					
