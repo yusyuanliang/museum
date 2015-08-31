@@ -1,27 +1,21 @@
-<html>
-    <head>
-        <title>sign</title>
-        <meta http-equiv="content-type" content="text/html;charset=utf-8">
-        <link href="stylesheets/screen.css" media="all" rel="stylesheet">
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <title>LoveMuseum</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
-        <!-- Bootstrap - Javascript(?)-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" /> 
-
-
-        <!-- Loading CSS -->
+    <link rel="stylesheet" href="css/foundation/foundation.css" />
+    <link href="stylesheets/screen.css" media="all" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+    <!-- Loading Flat UI -->
         <link href="dist/css/flat-ui.css" rel="stylesheet">
         <link href="docs/assets/css/demo.css" rel="stylesheet">
         <link rel="shortcut icon" href="img/favicon.ico">
-        <link rel="stylesheet" type="text/css" href="css/Jcrop/jquery.Jcrop.css" />
-
-        <!-- Loading Javascript -->
-        
-        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="js/vendor/modernizr.js"></script>
+     <!-- Todo-parse Javascript -->
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>      
         <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
-        
         <!--//JavaScript寫在這裡-->
         <script type="text/javascript">             
             Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt","zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
@@ -50,8 +44,7 @@
                 
                 Parse.User.signUp(username, password, null, {  //去撈資料庫的資料核對是否有重複
                     success: function(user) {
-                        window.location.href="main.html"; 
-//                        document.getElementById("myModal").style.display = "block";  
+                        window.location.href="main.html";   
                     },
 
                     error: function(user, error) {  //有重複顯示錯誤
@@ -101,89 +94,35 @@
 
             });
             }
-            
-				  //設定大頭照
-            function userphoto(){
-				var user = Parse.User.current();
-				var filephoto = $("#userphoto")[0];
-				if (filephoto.files.length > 0) {
-					var file = filephoto.files[0];
-					var name = "userphoto.jpg";
-					var parseFile = new Parse.File(name, file);
-					parseFile.save().then(function() {
-						var User = Parse.User.current();
-						//var StoryACL = new Parse.ACL(Parse.User.current());//權限
-				        //StoryACL.setPublicReadAccess(true);//權限
-                        //User.set("User", user);
-                        User.set("File", parseFile);
-						//Story.set("Text", text.value);
-						//User.setACL(StoryACL);//權限
-						User.save({
-							success: function(User) {
-								document.getElementById("upload").innerHTML="照片上傳成功!";
-//								document.getElementById("st-tex").innerHTML= text.value;
-//								document.getElementById("st-pic").innerHTML=  result.innerHTML;
-//								document.getElementById("load1").style.display = "none";
-//								document.getElementById("mugshot").style.display = "none";
-//  							document.getElementById("storypost").style.display = "block";  
-//								document.getElementById("$_showcommente").innerHTML= "  "; 
-							},
-							error: function(User, error) {
-								document.getElementById("upload").innerHTML="照片上傳失敗!";
-							}
-						});
-						
-					});
-				}
-			};	 			
         </script>
-    </head>
-    
-    <body >
-        <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" >
-          註冊
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <!-- <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-              </div> -->
-              <div class="modal-body">
-                <form action="new-story_submit" method="get" accept-charset="utf-8">
-                            <p>
-                                <!-- <label>選擇圖片</label>  -->
-                                <input type="file" id="userphoto" /> 
-                            </p>
-                            <div id="result"></div>
-                                
-                        </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="userphoto()">設成大頭照</button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="navigation">
+        
+  </head>
+  <body>
+        <div class="large-12 navigation">
             <div class="navigation2">
-                <div class="signmember">
+                <div class="small-11 large-5 columns login-form small-centered signmember">
                     <h1>註冊會員</h1>
-                    <form class="forma">
-                        <h6><label>Email</label><input type="text" name="fname" id="e1" onblur="timelyEmail(this,document.getElementById('email_help'));" /></h6>
+                    <div class="large-12 columns small-centered forma">
+                        <div class="large-10 columns small-centered">
+                          <label>帳　號</label>
+                          <input class="large-9 small-8 " type="text" name="fname" id="e1" onblur="timelyEmail(this,document.getElementById('email_help'));" />
+                        </div>
                         <span id="email_help" class="help"></span>
-                        <h6><label>密　碼</label><input type="password" name="lname" id="p1" placeholder="" onclick="email()"/></h6>
-                        <h6><label>確認密碼</label><input type="password" name="lname" id="p2" placeholder="" onclick="email()"/></h6>
-                    </form>
-                    <div class="bn-sign">
-                        <a  class="btn btn-block btn-lg btn-danger" onclick="check()">註冊</a>
-                    </div>  
-                    <p><span id="pw"></span></p>  <!--密碼錯誤在這裡顯示-->
-                    <p><span id="email-auth-no"></span></p>   <!--帳號錯誤在這裡顯示-->
+                        <div class="large-10 columns small-centered">
+                          <label>密　碼</label>
+                          <input class="large-9 small-8" type="password" name="lname" id="p1" placeholder="" onclick="email()"/>
+                        </div>
+                        <div class="large-10 columns small-centered" style="padding-left: -50px;">
+                          <label >確認密碼</label>
+                          <input class="large-9 small-8" type="password" name="lname" id="p2" placeholder="" onclick="email()"/>
+                        </div>
+                        <div class=" bn-sign">
+                          <a  class="large-12 small-centered  btn btn-block btn-lg btn-danger" onclick="check()">註冊</a>
+                        </div>  
+                        <p><span id="pw"></span></p>  <!--密碼錯誤在這裡顯示-->
+                        <p><span id="email-auth-no"></span></p>   <!--帳號錯誤在這裡顯示-->
+                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -238,10 +177,12 @@
 
 
 
-          } 
+        } 
         </script>
-
-        <script type="text/javascript" src="js/Jcrop/jquery.min.js"></script>  
-        <script type="text/javascript" src="js/Jcrop/jquery.Jcrop.min.js"></script>
-    </body>
+    <script src="js/foundation/vendor/jquery.js"></script>
+    <script src="js/foundation/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
 </html>

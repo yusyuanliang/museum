@@ -1,0 +1,693 @@
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <title>Lovemuseum</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/foundation.css" />
+    <script src="js/vendor/modernizr.js"></script>
+    
+
+    <script type="text/javascript" src="js/main.js"></script>
+    <link href="stylesheets/screen.css" media="all" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+  
+  
+    <!-- Loading CSS -->
+    <link href="dist/css/flat-ui.css" rel="stylesheet">
+    <link href="docs/assets/css/demo.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="css/Jcrop/jquery.Jcrop.css" />
+    
+    <!-- Loading Javascript -->
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>    
+    <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
+
+    <!-- Loading Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    
+    <!-- Bootstrap - Javascript(?)-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" /> 
+  
+    
+    
+    
+
+
+  <!--寫Javascript-->
+    <script type="text/javascript">
+      Parse.initialize("19BDOaHH86XPBfrBbpr4skyC0efMHQQKRdYi2Dzt","zFnzw3ICGaSB9dVxHWr9tOTRzn15v79DU3l5Sv5Y");
+
+      // 放全域變數
+
+      // 1.
+      var parseupdating="";
+
+      // 2.找到parent.id
+      var Story = Parse.Object.extend("Story");
+      var story = new Story();
+      story.fetch({
+          success: function(storyObject) {
+              var myStory = storyObject.toJSON();
+
+              for (key in myStory.results){
+                  var singleStory = new Story();
+                  singleStory.id = myStory.results[key].objectId;
+                  console.log(singleStory.id);
+                  this.showComments(singleStory);
+              }
+          }
+      });
+
+
+      
+  //顯示資料
+      function Project(){
+        // 顯示故事
+        var Story = Parse.Object.extend("Story");                
+        var query = new Parse.Query(Story);
+        var descending = Story.updatedAt;
+        query.descending("updatedAt");
+        query.notEqualTo("Story", "Text","File");
+        
+        query.find({
+          success: function(results) {
+          for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+
+          
+          var profilePhoto = object.get("File");
+          var url = (profilePhoto.url());
+          // alert('url = ' + profilePhoto.url());                          
+          var text = (object.get('Text') +'<br/>'); 
+          var template = $('.template').html();
+
+          template = template.replace("none", "block");
+          template = template.replace("$_storyImage",  "<img src='" + url + "'>" );
+          template = template.replace("$_storyMessage", text);
+            
+          template = template.replace("$_delbox", object.id);//刪除框變數
+          template = template.replace("$_storyText", object.id);//編輯顯示
+
+          template = template.replace("$_checkC1", object.id);//留言按鈕
+          template = template.replace("$_inputCommendText", object.id);//留言輸入
+          template = template.replace("$_inshowCommendText", object.id);//留言顯示
+          
+          template = template.replace("$_preComment", object.id); //先前留言
+          
+          template = template.replace("$_checkPC2", object.id); //顯示/隱藏先前留言
+          template = template.replace("$_showcomment", object.id);//Load留言顯示
+          template = template.replace("$_showcomment2", object.id);//Load留言顯示
+          template = template.replace("$_user-message", object.id); //留言模板
+          template = template.replace("$_user-message3", object.id);//留言模板2
+          template = template.replace("$_commentText", ""); //清除"$_commentText"
+          template = template.replace("$_commentText3", "");
+          $('.frame').append(template);
+
+          }
+
+        },
+        error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+        }
+
+      });
+
+      }
+      
+      // 顯示留言
+      function showComments(parent){
+          var Comment = Parse.Object.extend("Comment");
+          var query = new Parse.Query(Comment);
+          query.equalTo("parent", parent,"objectId");
+
+          query.find({
+              success: function(comments) {
+                // console.log 比對 parent.id
+                  for(var key in comments)
+                  {
+                      console.log("parent.id - " + parent.id);
+                      // alert("Comment - " + parent.id);
+
+                  }
+                  // 留言迴圈
+                  for (var i = 0; i < comments.length; i++) {
+                    var object = comments[i];
+                    var content = (object.get("content") +'<br/>');
+
+                    if (i<=2) {
+                      
+                      // 3筆
+                      var a = $('.story-message3').html();
+                      a = a.replace("none", "block"); 
+                      var showcontents3 = a = a.replace("$_commentText3", content);
+                      $('#'+ parent.id +'_cccc').prepend(showcontents3); 
+                    }
+
+                    else if(i>=2){
+
+                      // 多筆
+                      var b = $('.story-messages').html();
+                      b = b.replace("none", "block");
+                      var showcontents = b = b.replace("$_commentText", content);
+                      $('#'+ parent.id +'_ccc').prepend(showcontents);
+                      document.getElementById(parent.id + "_ccccc").innerHTML=  i - 2 +"則先前留言";
+                      
+                    }
+               
+                    
+                    
+                }
+
+              }
+              
+          });
+        
+
+
+      }
+      // 顯示/隱藏留言
+      function a(object){
+
+        $("."+ object +"2").toggle("fast");
+        document.getElementById(object + "_ccccc").innerHTML=  "隱藏留言";
+        // document.getElementById("aa2").style.display = "block";
+        
+      }
+
+    
+  // 新增故事
+      function check(){
+        var user = Parse.User.current();
+        var fileUploadControl = $("#profilePhotoFileUpload")[0];
+        if (fileUploadControl.files.length > 0) {
+          var file = fileUploadControl.files[0];
+          var name = "photo.jpg";
+          var parseFile = new Parse.File(name, file);
+          parseFile.save().then(function() {
+            var Story = new Parse.Object("Story");
+            var StoryACL = new Parse.ACL(Parse.User.current());//權限
+            StoryACL.setPublicReadAccess(true);//權限
+            Story.set("User", user);
+            Story.set("File", parseFile);
+            Story.set("Text", text.value);
+            Story.setACL(StoryACL);//權限
+            Story.save({
+              success: function(Story) {
+                document.getElementById("upload").innerHTML="故事上傳成功!";
+                document.getElementById("st-tex").innerHTML= text.value;
+                document.getElementById("st-pic").innerHTML=  result.innerHTML;
+                document.getElementById("load1").style.display = "none";
+                document.getElementById("mugshot").style.display = "none";
+                document.getElementById("storypost").style.display = "block";  
+                document.getElementById("$_showcommente").innerHTML= "  "; 
+              },
+              error: function(Story, error) {
+                document.getElementById("upload").innerHTML="故事上傳失敗!";
+              }
+            });
+            
+          });
+        }
+      };
+
+         
+       
+  //編輯故事
+
+      //顯示編輯的資料
+      function Updating1(object){
+        var Story = Parse.Object.extend("Story");
+        var query = new Parse.Query(Story);
+        query.equalTo("objectId", object);
+        query.first({
+          success: function(Story) {
+            var text = Story.get('Text');
+            document.getElementById("text2").innerHTML=text;
+            parseupdating =  Story.id; //Story.get('object');
+          },
+          error: function(error) {
+          }
+        });
+      }
+      
+       
+      //資料確定編輯
+      function Updating2(object){
+        var Story = Parse.Object.extend("Story");
+        var query = new Parse.Query(Story);
+        query.equalTo("objectId", parseupdating);
+        query.first({
+          success: function(Story) {
+            Story.save(null, {
+              success: function(Story) {
+                Story.set("Text", text2.value);
+                Story.save({
+                  success: function(Story) {
+                    window.location.href="main.html";
+                  },
+                  error: function(error) {
+                  }
+                });
+              },
+              error: function(error) {
+              }
+            });
+          },
+          error: function(error) {
+          }
+        }); 
+      }
+
+  //刪除故事
+
+      // 選擇刪除按鈕  
+        function choosedel(object){
+        var Story = Parse.Object.extend("Story");
+        var styesno = $('.st-yes-no').html();
+        $('.yesno').append(styesno);
+         
+        var query = new Parse.Query(Story);
+        query.equalTo("objectId", object);
+        query.first({
+          success: function(Story) {
+            parseupdating =  Story.id; 
+          },
+          error: function(error) {
+          }
+        });
+        }
+      
+      // 確定刪除
+        function del(object){
+          var Story = Parse.Object.extend("Story");
+          var query = new Parse.Query(Story);
+          query.equalTo("objectId", parseupdating);
+          query.first({
+            success: function(Story){
+            
+              Story.destroy();
+              window.location.href="main.html";   
+            },
+            error:function(objectId,error){
+              alert("Error: " + error.code + " " + error.message);
+            }
+          });
+        }
+
+  // 留言故事
+
+      function message(object){
+        var Story = Parse.Object.extend("Story");
+        var Comment = Parse.Object.extend("Comment");
+
+        var user = Parse.User.current();
+        
+        var story = new Story();
+        var comment = new Comment();
+        var a = document.getElementById(object +"_c").value;
+        var b = document.getElementById(object +"_cc").innerHTML;
+        story.set("objectId", object);
+
+        comment.set("content", a);
+
+        comment.set("parent", story);
+        
+        comment.set("User", user);
+        comment.save({
+          success: function(Comment) {
+            
+              document.getElementById(object +"_c").value = "";
+              $('#'+ object +'_cc').prepend(a + "<br>");
+              
+                    },
+                    error: function(error) {
+                    }
+                });
+            }
+      //搜尋
+            function search(input){ 
+                //document.getElementById("display").innerHTML = input.value;
+                var User = Parse.Object.extend("User");
+                var query = new Parse.Query(User);
+                query.notEqualTo("User", "username");
+                query.find({
+                    success: function(results) {
+//                        alert("Successfully retrieved " + results.length + " username.");
+//                        alert(object.id + ' - ' + object.get('username'));
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+                            if (object) {
+                               var username = object.get('username');
+                                if(input.value == username){
+                                   
+                                   document.getElementById("display").innerHTML = input.value;
+                                    parseupdating=object.id;
+                                    return false;
+                                    
+                                }
+                        
+                            }
+                            
+                           
+                        }
+                         document.getElementById("display").innerHTML="";
+                    },
+                    error: function(error) {
+                        alert("Error: " + error.code + " " + error.message);
+                    }
+                });
+                
+            }
+            
+            //加好友
+            function friend(){ 
+                var curUser = Parse.User.current();
+                var userQuery = new Parse.Query(Parse.User);
+                userQuery.equalTo("objectId", parseupdating); 
+            
+                userQuery.first().then
+                (
+                    function(userToAdd)
+                    {
+                        var relation = curUser.relation("friend");
+
+                        //add user to relation
+                        relation.add(userToAdd);
+                        curUser.save();
+                    },
+                    function(error)
+                    {
+                        console.log("error: " + error.message);
+                    }
+                );
+            
+           } 
+
+    </script>
+
+  </head>
+  <body onload="Project()">
+    <div class="wrapper" id="main"> 
+    <!--  主畫面  -->
+    <nav class="top-bar">
+    <p class="main-logo">LoveMuseum</p>
+    <a class="aa" href="#" >張薯條</a>
+      <div id="user-info">     
+    <a href="index.html" class="log-out" cheak="logout()">登出</a>
+               <p id="display"></p>
+    </div>
+           <button class="btn btn-embossed btn-primary" onclick="friend()" >    
+              加好友
+          </button>
+          <!-- 更換大頭照 -->
+    <div class="top-img" data-toggle="modal" data-target="#mugshot" style="cursor:pointer"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="mugshot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        </div> -->
+        <div class="modal-body">
+        <form action="new-story_submit" method="get" accept-charset="utf-8">
+          <p>
+            <!-- <label>選擇圖片</label>  -->
+            <input type="file" id="profilePhotoFileUpload" /> 
+          </p>
+          <div id="result"></div>
+                
+        </form>
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-primary">設成大頭照</button>
+        </div>
+      </div>
+      </div>
+    </div>
+    </nav>  
+    
+    <!-- 好友按鈕 -->
+          <div class="top-friends">
+             <button class="bn-reiends" class="btn btn-primary" type="button">
+             <span  class="glyphicon glyphicon-user"><span class="badge">5</span></span></button>
+              
+<!--              <a class="bn-reiends" href="#fakelink"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>-->
+        
+         <!--  搜尋好友  -->
+            <div class="top-search" >
+                  <form class="navbar-form navbar-right" action="#" role="search">
+                      <div class="form-group">
+                          <div class="input-group">
+                              <input class="form-control"  type="search" placeholder="Search" onkeyUp="search(this)">
+                                  <span class="input-group-btn">
+                                  <button type="submit" class="btn"><span class="fui-search"></span></button></span>
+                          </div>
+                          <div>
+                              <ul class="friend-list-group" style="display: none;">
+                                  <a href="#" class="list-group-item">friends1</a>
+                                  <a href="#" class="list-group-item">friends2</a>
+                                  <a href="#" class="list-group-item">friends3</a>
+                                  <a href="#" class="list-group-item">friends4</a>
+                              </ul>
+                          </div>
+                      </div>
+                   </form>
+               </div>        
+             </div>
+         
+     <!-- 故事框 -->
+      <div class="frame">
+        <div class="template">
+          <div class="post-story" id="storypost" style="display: none;">
+            
+       <!--  刪除確認框 巧瑜 -->
+            
+            
+            <div class="else-user-photo"></div>
+            <span class="user-name">張薯條</span>
+
+              
+<!--  故事-下拉式選單   巧瑜1     -->
+            <div class="st-deitor">
+              <button class="btn dropdown-toggle st-dd" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                <span class="glyphicon glyphicon-option-horizontal e" aria-hidden="true"></span>
+              </button>
+              <ul class=" dropdown-menu " role="menu" aria-labelledby="dropdownMenu1">
+                 <li><a onclick="choosedel('$_delbox')">刪除</a></li> 
+                <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal"  onclick="Updating1('$_storyText')" data-target="#myModal2">編輯</a></li>
+                
+                
+              </ul>
+            </div>
+<!-- 刪除提示框   巧瑜2     --> 
+                
+            
+        
+         <div class="yesno">
+        <span class="st-yes-no" id="del" style="display: none;">
+          <span>確定要刪除故事嗎?</span>
+            <span class="st-yes"><a onclick="del()">是</a></span>
+            <span class="st-no"><a href="main.html">否</a></span>
+        </span>
+        </div> 
+
+      <div class="st-photo" id="st-pic">$_storyImage</div>
+      <p id="st-tex" class="story-text">$_storyMessage</p>
+<!-- 留言  -->
+
+        <div class="message-bar" >
+          <span class="fui-triangle-down-small"></span>
+        <!-- <span class="fui-triangle-up-small"  ></span> -->
+        <a id="$_preComment_ccccc" onclick="a('$_checkPC2');" style="cursor:pointer" >沒有隱藏留言</a>
+
+        </div>
+       
+       
+      <div class="user-message" >
+        <div class="$_user-message2"  style="display: none;">
+          <div class="story-messages"  id="$_showcomment_ccc" >
+            <div class="story-messager-photo"style="display: none;"><h6>貓兒</h6></div>
+            <!-- 多筆 -->
+            <div class="story-messager-text" ><p>$_commentText</p></div>
+
+          </div>
+          
+        </div>
+        <div class="$_user-message2" >
+          
+          <div class="story-message3"  id="$_showcomment2_cccc">
+            <div class="story-messager-photo" style="display: none;"><h6>俠盜</h6></div>
+            <!-- 3筆 -->
+            <div class="story-messager-text" ><p>$_commentText3</p></div>
+            <p id="$_inshowCommendText_cc"></p>
+          </div>
+          
+        </div>
+        
+        <input  type="text" id="$_inputCommendText_c" name="mess" class="input-message">
+        <div class="bn-comments">
+          <a onclick="message('$_checkC1')"  name="mess" class="btn btn-info">留言</a>
+        </div>
+        </div>
+    </div>                     
+    
+      
+      
+      
+      
+
+    
+      <!-- 新增文章按鈕 -->
+      <div class="bn-newstory" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"style="cursor:pointer">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true" ></span>
+      </div>
+
+
+
+<!-- 新增文章按鈕 -->
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="newstory-page" id="load1">
+        <div class="newstory-wall">
+          <div class="newstory-header">
+            <span class="newstory-logo">LoveMuseum</span>
+          </div>
+          <div class="newstory-body">
+            <button type="button" class="newstory-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <form action="new-story_submit" method="get" accept-charset="utf-8">
+              <p>
+                <label>選擇圖片</label> 
+                <input type="file" id="profilePhotoFileUpload" /> 
+              </p>
+              <div id="result"></div>
+                <textarea cols="170" rows="5" placeholder="輸入故事內容..." id="text" class="input-story"></textarea>
+            </form>
+          </div>
+          <div class="newstory-footer">
+            <div class="bn-po">
+              <a class="btn btn-block btn-lg btn-info" onclick="check()" data-toggle="modal" data-target="#load2"  style="cursor:pointer">發佈</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- loading頁面 -->
+
+          <div class="londing-page" id="load2" style="display: none;">
+            <div class="newstory-wall"  >
+              <div class="loding-header">
+                <span class="newstory-logo">LoveMuseum</span>
+                <button type="button" class="loding-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="loding-body">
+                <div class="progress">
+                  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                    <span class="sr-only">100% Complete (danger)</span>
+                  </div>
+                </div>
+                <h1 id="upload">Loading......</h1>
+              </div>
+              <div class="modal-footer"></div>
+            </div>
+          </div>
+  
+  
+  
+
+</div>
+
+<!--  編輯視窗  巧瑜-->
+       <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+      <div class="newstory-page" id="load1">
+          <div class="newstory-wall">
+            <div class="newstory-header">
+              <span class="newstory-logo">LoveMuseum</span>
+            </div>
+            <div class="newstory-body">
+              <button type="button" class="newstory-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+              </button>
+              <form action="new-story_submit" method="get" accept-charset="utf-8">
+
+                <div id="result"></div>
+                <textarea cols="170" rows="5" placeholder="輸入故事內容..." id="text2" class="input-story"></textarea>
+              </form>
+            </div>
+            <div class="newstory-footer">
+              <div class="bn-po">
+                <a class="btn btn-info" onclick="Updating2()" id="upd">確認編輯</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+
+
+      <script src="js/vendor/jquery.js"></script>
+    <script src="js/foundation.min.js"></script>
+
+<!-- 上傳圖片顯示 -->
+          <script type="text/javascript">
+            var result = document.getElementById("result"); 
+            var input = document.getElementById("profilePhotoFileUpload"); 
+            if(typeof FileReader==='undefined'){ 
+               
+                input.setAttribute('disabled','disabled'); 
+            }else{ 
+                input.addEventListener('change',readFile,false); 
+            } 
+            function readFile(){ 
+                var file = this.files[0]; 
+                if(!/image\/\w+/.test(file.type)){ 
+                    alert("檔案錯了喔><"); 
+                    return false; 
+                } 
+                var reader = new FileReader(); 
+                reader.readAsDataURL(file); 
+
+                reader.onload = function(e){ 
+                  // 圖片顯示頁面
+                    result.innerHTML = '<img src="'+this.result+'" ' +' id="jcrop_target"/>'
+
+                    // 固定寬高剪裁圖片
+                    $('#jcrop_target').Jcrop({
+                        onChange:showPreview,
+                        onSelect:showPreview,
+                        aspectRatio:1
+                    }); 
+                    
+                    function showPreview(coords){
+                        if(parseInt(coords.w) > 0){
+                            
+                            var rx = $("#preview_box").width() / coords.w; 
+                            var ry = $("#preview_box").height() / coords.h;
+                            
+                            $("#crop_preview").css({
+                                width:Math.round(rx * $("#jcrop_target").width()) + "px", 
+                                height:Math.round(rx * $("#jcrop_target").height()) + "px",  
+                                marginLeft:"-" + Math.round(rx * coords.x) + "px",
+                                marginTop:"-" + Math.round(ry * coords.y) + "px"
+                            });
+                        }
+                    } 
+                }
+
+
+
+            } 
+          </script>
+
+          <script type="text/javascript" src="js/Jcrop/jquery.min.js"></script>  
+          <script type="text/javascript" src="js/Jcrop/jquery.Jcrop.min.js"></script>
+   
+          
+   
+          
+  </body>
+</html>

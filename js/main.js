@@ -26,7 +26,6 @@
 	//顯示資料
 			function Project(){
 				// 顯示故事
-                
 				var Story = Parse.Object.extend("Story");                
 				var query = new Parse.Query(Story);
 				var descending = Story.updatedAt;
@@ -75,33 +74,7 @@
 				}
 
 			});
-				
-			}
-			
 
-			function s(){
-
-				var User = Parse.Object.extend("User");                
-				var query = new Parse.Query(User);
-				query.equalTo("User","File");
-				
-				
-
-					query.first({
-						success: function() {
-							var usernamefile = object.get("File");
-							var url = (usernamefile.url());
-							var topimg = document.getElementById("topimg");
-							
-							topimg.innerHTML = "<img src='" + url + "'>";
-							alert('url = ' + usernamefile.url());   
-
-					},
-					error: function(error) {
-					alert("Error: " + error.code + " " + error.message);
-					}
-
-				});
 			}
 			
 			// 顯示留言
@@ -187,7 +160,6 @@
 								document.getElementById("st-tex").innerHTML= text.value;
 								document.getElementById("st-pic").innerHTML=  result.innerHTML;
 								document.getElementById("load1").style.display = "none";
-								document.getElementById("mugshot").style.display = "none";
 								document.getElementById("storypost").style.display = "block";  
 								document.getElementById("$_showcommente").innerHTML= "  "; 
 							},
@@ -200,40 +172,7 @@
 				}
 			};
 
-				  //設定大頭照
-            function userphoto(){
-				var user = Parse.User.current();
-				var filephoto = $("#userphoto")[0];
-				if (filephoto.files.length > 0) {
-					var file = filephoto.files[0];
-					var name = "userphoto.jpg";
-					var parseFile = new Parse.File(name, file);
-					parseFile.save().then(function() {
-						var User = Parse.User.current();
-						//var StoryACL = new Parse.ACL(Parse.User.current());//權限
-				        //StoryACL.setPublicReadAccess(true);//權限
-                        //User.set("User", user);
-                        User.set("File", parseFile);
-						//Story.set("Text", text.value);
-						//User.setACL(StoryACL);//權限
-						User.save({
-							success: function(User) {
-								document.getElementById("upload").innerHTML="照片上傳成功!";
-//								document.getElementById("st-tex").innerHTML= text.value;
-//								document.getElementById("st-pic").innerHTML=  result.innerHTML;
-//								document.getElementById("load1").style.display = "none";
-//								document.getElementById("mugshot").style.display = "none";
-//  							document.getElementById("storypost").style.display = "block";  
-//								document.getElementById("$_showcommente").innerHTML= "  "; 
-							},
-							error: function(User, error) {
-								document.getElementById("upload").innerHTML="照片上傳失敗!";
-							}
-						});
-						
-					});
-				}
-			};	 			 
+				 
 		   
 	//編輯故事
 
@@ -364,9 +303,7 @@
                                 if(input.value == username){
                                    
                                    document.getElementById("display").innerHTML = input.value;
-                                    parseupdating=object.id;
                                     return false;
-                                    
                                 }
                         
                             }
@@ -386,13 +323,14 @@
             function friend(){ 
                 var curUser = Parse.User.current();
                 var userQuery = new Parse.Query(Parse.User);
-                userQuery.equalTo("objectId", parseupdating); 
-            
+                userQuery.equalTo("objectId", "sFbwaiD518"); //xj3QLLYy07
+
+                //find the user you want to add
                 userQuery.first().then
                 (
                     function(userToAdd)
                     {
-                        var relation = curUser.relation("friend");
+                        var relation = curUser.relation("amici");
 
                         //add user to relation
                         relation.add(userToAdd);
@@ -405,6 +343,3 @@
                 );
             
            } 
-            
-            
-            
